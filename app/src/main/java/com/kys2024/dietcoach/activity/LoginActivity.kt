@@ -3,14 +3,10 @@ package com.kys2024.dietcoach.activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.kys2024.dietcoach.G
-import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.ActivityLoginBinding
 
@@ -61,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "카카오로그인 성공", Toast.LENGTH_SHORT).show()
 
                 //로그인이 성공하면 사용자 정보 요청
-                UserApiClient.instance.me  { user, error ->
+                UserApiClient.instance.me  { user, e ->
                     if(user!=null){
                         val id:String = user.id.toString()
                         val nickname:String = user.kakaoAccount?.profile?.nickname ?: ""
