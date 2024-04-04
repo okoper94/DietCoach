@@ -3,7 +3,12 @@ package com.kys2024.dietcoach.activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.kys2024.dietcoach.G
@@ -45,7 +50,34 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun clickGoogleLogin(){
 
+        //로그인 옵션객체 생성 - Builder - 이메일 요청..
+        val signInOptions: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+
+        //구글 로그인을 하는 화면 액티비티를 실행하는 Intent 객체로 로그인 구현
+        val intent:Intent = GoogleSignIn.getClient(this, signInOptions).signInIntent
+        resultLauncher.launch(intent)
     }
+    //구글 로그인에 필요한 멤버변수
+    // 구글 로그인화면 결과를 받아주는 대행사 등록
+    val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        //로그인 결과를 가져온 인텐트 소환
+        val intent:Intent? = it.data
+        //인텐트로 부터 구글 계정 정보를 가져오는 작업자 객체를 소환
+        val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(intent)
+
+        //작업자로부터 계정 받기
+        val account: GoogleSignInAccount = task.result
+        val id:String = account.id.toString()
+        val email:String= account.email ?: ""
+
+        Toast.makeText(this, "$id\n$email", Toast.LENGTH_SHORT).show()
+        G.userAccount= UserAccount(id, email)
+
+        //main 화면으로 이동
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+    //구글 로그인에 필요한 멤버변수
 
     private fun clickKakaoLogin(){
 
