@@ -18,7 +18,9 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.toolbar.setNavigationOnClickListener { clickNavigation() }
+
+        binding.tvDool.setOnClickListener { clickDool()}
+
         binding.layoutEmailLogin.setOnClickListener{ clickEmailLogin()}
         binding.layoutGoogleLogin.setOnClickListener{ clickGoogleLogin()}
         binding.layoutKakaoLogin.setOnClickListener{ clickKakaoLogin()}
@@ -32,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
-    private fun clickNavigation(){
+    private fun clickDool(){
         startActivity(Intent(this,MainActivity::class.java))
 
     }
