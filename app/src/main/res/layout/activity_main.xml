@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         tools:ignore="BottomAppBar"
-        android:backgroundTint="#F88D6B">
+        android:backgroundTint="@color/white">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomnavigation"
@@ -60,7 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
             app:menu="@menu/bottom_navigation"
-            android:background="#F88D6B" />
+            android:background="@color/white"
+            app:itemIconTint="@color/green"
+            app:itemTextColor="@color/green"/>
 
 
     </com.google.android.material.bottomappbar.BottomAppBar>

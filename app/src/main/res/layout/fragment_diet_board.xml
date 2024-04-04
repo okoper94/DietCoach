@@ -23,7 +23,7 @@
         android:layout_marginRight="4dp"
         android:text="글쓰기"
         android:layout_alignRight="@id/tv"
-        android:background="#FFFFFF"/>
+        android:backgroundTint="@color/green"/>
 
     <View
         android:layout_below="@id/tv"
