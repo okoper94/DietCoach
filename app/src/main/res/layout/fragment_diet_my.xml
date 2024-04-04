@@ -60,7 +60,9 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="20dp"
-                        android:hint="별명">
+                        android:hint="별명"
+                        app:boxStrokeColor="@color/green"
+                        app:hintTextColor="@color/green">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="200dp"
@@ -99,20 +101,24 @@
                         android:layout_marginLeft="30dp"
                         android:orientation="horizontal">
 
-                        <RadioButton
+                        <androidx.appcompat.widget.AppCompatRadioButton
                             android:id="@+id/male_radio_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="남성"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:buttonTint="@color/green"
+                            android:backgroundTint="@color/green"/>
 
-                        <RadioButton
+                        <androidx.appcompat.widget.AppCompatRadioButton
                             android:id="@+id/female_radio_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:text="여성"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:buttonTint="@color/green"
+                            android:backgroundTint="@color/green"/>
 
                     </RadioGroup>
 
@@ -145,12 +151,15 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="42dp"
-                        android:hint="100cm">
+                        android:hint="100cm"
+                        app:boxStrokeColor="@color/green"
+                        app:hintTextColor="@color/green">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="200dp"
                             android:layout_height="55dp"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -194,12 +203,15 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
-                        android:hint="100kg">
+                        android:hint="100kg"
+                        app:boxStrokeColor="@color/green"
+                        app:hintTextColor="@color/green">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="200dp"
                             android:layout_height="55dp"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -226,9 +238,10 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:background="#9C9B9B"
+            android:backgroundTint="@color/green"
             android:text="BMI 분석 하기"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview_bmi"
