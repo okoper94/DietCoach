@@ -137,6 +137,15 @@
         android:textStyle="bold"
         android:textSize="16sp"/>
 
+    <TextView
+        android:id="@+id/tv_dool"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="둘러보기"/>
+
 
 
 </LinearLayout>
