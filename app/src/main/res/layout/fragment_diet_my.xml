@@ -107,8 +107,7 @@
                             android:layout_height="wrap_content"
                             android:text="남성"
                             android:textStyle="bold"
-                            android:buttonTint="@color/green"
-                            android:backgroundTint="@color/green"/>
+                            android:theme="@style/CustomRadioButton" />
 
                         <androidx.appcompat.widget.AppCompatRadioButton
                             android:id="@+id/female_radio_button"
@@ -117,8 +116,7 @@
                             android:layout_marginLeft="20dp"
                             android:text="여성"
                             android:textStyle="bold"
-                            android:buttonTint="@color/green"
-                            android:backgroundTint="@color/green"/>
+                            android:theme="@style/CustomRadioButton" />
 
                     </RadioGroup>
 

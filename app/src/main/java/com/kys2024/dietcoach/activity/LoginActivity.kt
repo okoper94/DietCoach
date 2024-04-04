@@ -18,11 +18,11 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.toolbar.setNavigationOnClickListener { clickNavigation() }
+        binding.tvDool.setOnClickListener { clickDool() }
 
 
     }
-    private fun clickNavigation(){
+    private fun clickDool(){
         startActivity(Intent(this,MainActivity::class.java))
 
 
