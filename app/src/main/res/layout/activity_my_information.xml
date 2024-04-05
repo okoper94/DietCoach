@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MyInformationActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"/>
+
+
+    <ImageView
+        android:id="@+id/iv_profile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/ic_action_my"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/iv_editing"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/baseline_camera_alt_24"
+        android:layout_alignBottom="@id/iv_profile"
+        android:layout_alignRight="@id/iv_profile"/>
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="#75EFE4"
+        android:text="다이어트 좋아님"
+        android:gravity="center"
+        android:layout_below="@id/iv_profile"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/tv_goals_kcal"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="목표 칼로리"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:layout_below="@id/tv_nickname"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/tv_kcal"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="#75EFE4"
+        android:text="2400kcal"
+        android:gravity="center"
+        android:layout_below="@id/tv_goals_kcal"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/iv_pencil"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignBottom="@id/tv_kcal"
+        android:layout_marginLeft="290dp"
+        android:background="@drawable/baseline_create_24" />
+
+    <TextView
+        android:id="@+id/tv_bmi"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="BMI 측정하러가기"
+        android:layout_marginTop="70dp"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:layout_below="@id/tv_kcal"
+        android:layout_centerHorizontal="true" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_bmi"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/tv_bmi"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:padding="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_bmi_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="결과값"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_bmr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="결과값"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"/>
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/tv_kcal2"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="#75EFE4"
+        android:text="저장하기"
+        android:gravity="center"
+        android:layout_marginTop="80dp"
+        android:layout_below="@id/cardview_bmi"
+        android:layout_centerHorizontal="true"/>
+
+
+
+
+
+
+
+</RelativeLayout>

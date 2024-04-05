@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CarenderViewActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"/>
+
+    <TextView
+        android:layout_below="@id/toolbar"
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2024/04/01"
+        android:textStyle="bold"
+        android:textSize="21sp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_below="@id/tv_date"
+        android:id="@+id/tv_morning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50sp"
+        android:text="아침"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_morning"
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/tv_morning"
+        android:layout_centerHorizontal="true"
+        android:padding="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
+
+        <ImageView
+            android:id="@+id/iv_morning"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/food2"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="요리명 : 떡볶이,어묵,순대"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/food_kcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="총칼로리 : 800 kcal"
+            android:layout_marginLeft="200dp"
+            android:textStyle="bold"
+            android:layout_marginTop="120dp"/>
+
+        <TextView
+            android:id="@+id/food_carbohydrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탄수화물 : 100g"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="50dp"/>
+
+        <TextView
+            android:id="@+id/food_fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지방 : 300g"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="70dp"/>
+        <TextView
+            android:id="@+id/food_protein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="단백질 : 150g"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="90dp"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_below="@id/cardview_morning"
+        android:id="@+id/tv_lunch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50sp"
+        android:text="점심"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_lunch"
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/tv_lunch"
+        android:layout_centerHorizontal="true"
+        android:padding="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
+
+        <ImageView
+            android:id="@+id/iv_lunch"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/food2"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="요리명 : 떡볶이,어묵,순대"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/food_kcal_lunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="총칼로리 : 800 kcal"
+            android:layout_marginLeft="200dp"
+            android:textStyle="bold"
+            android:layout_marginTop="120dp"/>
+
+        <TextView
+            android:id="@+id/food_carbohydrate_lunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탄수화물 : 100g"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="50dp"/>
+
+        <TextView
+            android:id="@+id/food_fat_lunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지방 : 300g"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="70dp"/>
+        <TextView
+            android:id="@+id/food_protein_lunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="단백질 : 150g"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="90dp"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_below="@id/cardview_lunch"
+        android:id="@+id/tv_dinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50sp"
+        android:text="저녁"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_dinner"
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/tv_dinner"
+        android:layout_centerHorizontal="true"
+        android:padding="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
+
+        <ImageView
+            android:id="@+id/iv_dinner"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/food2"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/food_dinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="요리명 : 떡볶이,어묵,순대"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/food_kcal_dinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="총칼로리 : 800 kcal"
+            android:layout_marginLeft="200dp"
+            android:textStyle="bold"
+            android:layout_marginTop="120dp"/>
+
+        <TextView
+            android:id="@+id/food_carbohydrate_dinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탄수화물 : 100g"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="50dp"/>
+
+        <TextView
+            android:id="@+id/food_fat_dinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지방 : 300g"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="70dp"/>
+        <TextView
+            android:id="@+id/food_protein_dinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="단백질 : 150g"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"
+            android:layout_marginTop="90dp"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_total_kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cardview_dinner"
+        android:text="총칼로리 : 2400 kcal"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
+
+
+
+</RelativeLayout>
