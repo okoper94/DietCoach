@@ -18,15 +18,41 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.toolbar.setNavigationOnClickListener { clickNavigation() }
+
+        binding.tvDool.setOnClickListener { clickDool()}
+
+        binding.layoutEmailLogin.setOnClickListener{ clickEmailLogin()}
+        binding.layoutGoogleLogin.setOnClickListener{ clickGoogleLogin()}
+        binding.layoutKakaoLogin.setOnClickListener{ clickKakaoLogin()}
+        binding.layoutNaverLogin.setOnClickListener{ clickNaverLogin()}
+        binding.tvLogin.setOnClickListener { clickLogin() }
 
 
     }
-    private fun clickNavigation(){
+    private fun clickLogin(){
+        startActivity(Intent(this,LoginMemberShipActivity::class.java))
+
+
+    }
+    private fun clickDool(){
         startActivity(Intent(this,MainActivity::class.java))
 
+    }
 
+    private fun clickEmailLogin(){
+        startActivity(Intent(this,LoginEmailActivity::class.java))
+    }
+    private fun clickGoogleLogin(){
 
     }
+
+    private fun clickKakaoLogin(){
+
+    }
+
+    private fun clickNaverLogin(){
+
+    }
+
 
 }
