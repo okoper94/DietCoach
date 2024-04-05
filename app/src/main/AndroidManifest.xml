@@ -26,7 +26,11 @@
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.naver.sdk.login.oauth.callback" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.IntroActivity"
             android:exported="true">

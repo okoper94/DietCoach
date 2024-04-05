@@ -19,6 +19,7 @@ firebaseBomVersion = "32.3.1"
 firebaseAnalyticsKtx = "21.6.1"
 firebaseAuthKtx = "22.3.1"
 playServicesAuth = "21.0.0"
+oauth = "5.9.1"
 
 
 
@@ -41,6 +42,7 @@ google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", ve
 firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx", version.ref = "firebaseAnalyticsKtx" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
+oauth = { group = "com.navercorp.nid", name = "oauth", version.ref = "oauth" }
 
 
 

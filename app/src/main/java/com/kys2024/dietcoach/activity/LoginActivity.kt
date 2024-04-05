@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -14,15 +15,25 @@ import com.kakao.sdk.user.UserApiClient
 import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.ActivityLoginBinding
+import com.kys2024.dietcoach.network.RetrofitApiService
+import com.kys2024.dietcoach.network.RetrofitHelper
+import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.OAuthLoginCallback
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 class LoginActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(binding.root)
+
+        NaverIdLoginSDK.initialize(this, "xC8gXWUBO0R6KR8vexNc", "rTWsN8I52B", "다이어트코치")
 
 
         binding.tvDool.setOnClickListener { clickDool()}
@@ -113,8 +124,48 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun clickNaverLogin(){
+        
+        NaverIdLoginSDK.authenticate(this, object : OAuthLoginCallback{
+            override fun onError(errorCode: Int, message: String) {
+                Toast.makeText(this@LoginActivity, "$message", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onFailure(httpStatus: Int, message: String) {
+                Toast.makeText(this@LoginActivity, "$message", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onSuccess() {
+                Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
+
+                //사용자 정보를 받아오기 -- REST API로 받아야함
+                //로그인에 성공하면 REST API로 요청할 수 있는 토큰을 발급받음
+                val accessToken:String? = NaverIdLoginSDK.getAccessToken()
+
+                //Retrofit 작업을 통해 사용자 정보 가져오기
+                val retrofit = RetrofitHelper.getRetrofitInstance("https://openapi.naver.com")
+                val retrofitApiService=retrofit.create(RetrofitApiService::class.java)
+                val call= retrofitApiService.getNidUserInfo("Bearer ${accessToken}")
+                call.enqueue(object : Callback<String> {
+                    override  fun onResponse(call: Call<String>, response: Response<String>){
+                        val s = response.body()
+                        AlertDialog.Builder(this@LoginActivity).setMessage(s).create().show()
+
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                        finish()
+                    }
+
+                    override  fun onFailure(call: Call<String>, t: Throwable){
+                        Toast.makeText(this@LoginActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+
+        })
+
+
 
     }
+
 
 
 }
