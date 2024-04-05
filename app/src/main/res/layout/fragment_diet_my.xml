@@ -49,25 +49,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="15dp"
-                        android:text="닉네임"
+                        android:layout_marginLeft="20dp"
+                        android:text="나이"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/input_nickname"
+                        android:id="@+id/input_age"
                         android:layout_width="200dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="20dp"
-                        android:hint="별명"
+                        android:layout_marginLeft="30dp"
+                        android:hint="10세"
                         app:boxStrokeColor="@color/green"
                         app:hintTextColor="@color/green">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="200dp"
                             android:layout_height="55dp"
-                            android:inputType="text" />
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -262,14 +262,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="BMI 분석 결과"
+                    android:text="분석 결과"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_bmi"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="결과값"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_bmr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="결과값"
                     android:textSize="20sp"
                     android:layout_marginLeft="20dp"
