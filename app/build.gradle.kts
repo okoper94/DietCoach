@@ -53,12 +53,15 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.material.calendarview2)
     implementation (libs.v2.user)
     implementation(libs.firebase.bom.v3280)
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.firebase.analytics.ktx)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.play.services.auth)
+
 
 
 
