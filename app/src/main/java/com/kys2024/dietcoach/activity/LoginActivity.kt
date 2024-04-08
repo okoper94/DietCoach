@@ -33,10 +33,14 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+
+        binding.tvDool.setOnClickListener { clickDool() }
+
         NaverIdLoginSDK.initialize(this, "xC8gXWUBO0R6KR8vexNc", "rTWsN8I52B", "다이어트코치")
 
 
         binding.tvDool.setOnClickListener { clickDool()}
+
 
         binding.layoutEmailLogin.setOnClickListener{ clickEmailLogin()}
         binding.layoutGoogleLogin.setOnClickListener{ clickGoogleLogin()}
