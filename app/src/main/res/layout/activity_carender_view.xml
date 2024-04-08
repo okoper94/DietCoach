@@ -53,7 +53,7 @@
             android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/food_name"
+            android:id="@+id/food_name1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="요리명 : 떡볶이,어묵,순대"
@@ -129,7 +129,7 @@
             android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/food_name"
+            android:id="@+id/food_name2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="요리명 : 떡볶이,어묵,순대"
@@ -205,7 +205,7 @@
             android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/food_dinner"
+            android:id="@+id/food_name3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="요리명 : 떡볶이,어묵,순대"
