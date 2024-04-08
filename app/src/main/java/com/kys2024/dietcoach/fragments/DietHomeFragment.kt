@@ -21,5 +21,8 @@ class DietHomeFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val nutritionProgressView = binding.nutritionProgressView
+        nutritionProgressView.setNutritionValues( carb = 50f, protein = 30f, fat = 20f )
     }
 }

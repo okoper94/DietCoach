@@ -22,7 +22,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.MyInformationActivity"
-            android:name=".activity.ResultActivity"
+
 
             android:exported="false" />
         <activity
