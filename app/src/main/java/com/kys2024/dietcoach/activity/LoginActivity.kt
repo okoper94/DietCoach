@@ -18,9 +18,7 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-
-        binding.tvDool.setOnClickListener { clickDool()}
-
+        binding.tvDool.setOnClickListener { clickDool() }
         binding.layoutEmailLogin.setOnClickListener{ clickEmailLogin()}
         binding.layoutGoogleLogin.setOnClickListener{ clickGoogleLogin()}
         binding.layoutKakaoLogin.setOnClickListener{ clickKakaoLogin()}
