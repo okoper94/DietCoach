@@ -59,7 +59,7 @@ dependencies {
     implementation(libs.firebase.analytics.ktx)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.play.services.auth)
-    implementation("com.navercorp.nid:oauth:5.9.0")
+
 
 
 
