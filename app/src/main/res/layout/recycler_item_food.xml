@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:contentPadding="8dp"
+    android:layout_margin="4dp"
+    android:backgroundTint="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/foodName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탕수육"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/XX"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="311"
+            android:layout_toLeftOf="@id/caloriesX"
+            android:layout_below="@id/foodName"/>
+
+        <TextView
+            android:id="@+id/caloriesX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kcal(칼로리)"
+            android:layout_below="@id/foodName"
+            android:layout_marginLeft="4dp"
+            android:layout_toLeftOf="@id/XX"/>
+
+
+        <TextView
+            android:id="@+id/carbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:layout_toLeftOf="@id/carbsX"
+            android:layout_below="@id/calories"/>
+
+        <TextView
+            android:id="@+id/carbsX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="g(탄수화물)"
+            android:layout_below="@id/calories"
+            android:layout_marginLeft="4dp"
+            android:layout_toLeftOf="@id/XX"/>
+
+
+        <TextView
+            android:id="@+id/proteins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:layout_toLeftOf="@id/proteinsX"
+            android:layout_below="@id/carbs"/>
+
+        <TextView
+            android:id="@+id/proteinsX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="g(단백질)"
+            android:layout_below="@id/carbs"
+            android:layout_marginLeft="4dp"
+            android:layout_toLeftOf="@id/XX"/>
+
+
+        <TextView
+            android:id="@+id/fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15"
+            android:layout_toRightOf="@id/XX"
+            android:layout_below="@id/foodName"/>
+
+        <TextView
+            android:id="@+id/fatX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="g(지방)"
+            android:layout_below="@id/foodName"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/fat"/>
+
+
+        <TextView
+            android:id="@+id/fiber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:layout_toRightOf="@id/XX"
+            android:layout_below="@id/fat"/>
+
+        <TextView
+            android:id="@+id/fiberX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="g(식이섬유)"
+            android:layout_below="@id/fat"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/fiber"/>
+
+
+        <TextView
+            android:id="@+id/sodium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:layout_toRightOf="@id/XX"
+            android:layout_below="@id/fiber"/>
+
+        <TextView
+            android:id="@+id/sodiumX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="g(나트륨)"
+            android:layout_below="@id/fiber"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/sodium"/>
+
+
+        <TextView
+            android:id="@+id/cholesterol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:layout_toRightOf="@id/XX"
+            android:layout_below="@id/sodium"/>
+
+        <TextView
+            android:id="@+id/cholesterolX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="g(콜레스테롤)"
+            android:layout_below="@id/sodium"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/cholesterol"/>
+
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
