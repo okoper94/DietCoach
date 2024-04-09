@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.LoginEmailActivity">
+    tools:context=".activity.LoginEmailActivity"
+    android:background="@color/white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -88,6 +89,6 @@
         android:text="로그인"
         android:textStyle="bold"
         android:textSize="17sp"
-        android:background="#2E4CF4"/>
+        android:backgroundTint="@color/green"/>
 
 </LinearLayout>
