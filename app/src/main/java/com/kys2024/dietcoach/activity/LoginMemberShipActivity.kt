@@ -22,13 +22,6 @@ class LoginMemberShipActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//        setContentView(R.layout.activity_login_member_ship)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
         setContentView(binding.root)
         binding.toolbar.setNavigationOnClickListener { finish() }
         binding.btnLogin.setOnClickListener { signUpToAuth() }
@@ -37,14 +30,12 @@ class LoginMemberShipActivity : AppCompatActivity() {
     }
 
     private fun signUpToAuth() {
-        auth = Firebase.auth
-
-        // 회원가입 실패이유
-        // 1. 칸수 다 안채움
-        // 2. 중복체크 안함
         val email = binding.inputLayoutEmail.editText!!.text.toString()
         val password = binding.inputLayoutPassword.editText!!.text.toString()
         val passwordConform = binding.inputLayoutPasswordCheck.editText!!.text.toString()
+
+
+
         if (password.isEmpty()) {
             AlertDialog.Builder(this)
                 .setMessage("password를 입력해주세요")
