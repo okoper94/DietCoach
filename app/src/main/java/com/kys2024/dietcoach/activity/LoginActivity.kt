@@ -33,6 +33,8 @@ import java.util.Date
 
 
 class LoginActivity : AppCompatActivity() {
+    var userId : String? = ""
+    var userNick : String? = ""
 
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
 
@@ -53,11 +55,11 @@ class LoginActivity : AppCompatActivity() {
         binding.layoutGoogleLogin.setOnClickListener{ clickGoogleLogin()}
         binding.layoutKakaoLogin.setOnClickListener{ clickKakaoLogin()}
         binding.buttonOAuthLoginImg.setOnClickListener{ clickNaverLogin() }
-        binding.tvLogin.setOnClickListener { clickLogin() }
+        binding.tvLogin.setOnClickListener { clickSignup() }
 
 
     }
-    private fun clickLogin(){
+    private fun clickSignup(){
         startActivity(Intent(this,LoginMemberShipActivity::class.java))
 
 
@@ -89,12 +91,14 @@ class LoginActivity : AppCompatActivity() {
 
         //작업자로부터 계정 받기
         val account: GoogleSignInAccount = task.result
-        val id:String = account.id.toString()
-        val email:String= account.email ?: ""
+        val uid:String = account.id.toString()
+        val nickname:String= account.displayName ?: ""
 
-        Toast.makeText(this, "$id\n$email", Toast.LENGTH_SHORT).show()
-        G.userAccount?.uid= id
-        G.userAccount?.nickname= email
+        Toast.makeText(this, "$uid\n$nickname", Toast.LENGTH_SHORT).show()
+        userId= uid
+        userNick = nickname
+        G.userAccount= UserAccount(uid = userId!!, nickname = userNick!!)
+        serverUpload()
 
         //main 화면으로 이동
         startActivity(Intent(this, MainActivity::class.java))
@@ -118,8 +122,10 @@ class LoginActivity : AppCompatActivity() {
                         val uid:String = user.id.toString()
                         val nickname:String = user.kakaoAccount?.profile?.nickname ?: ""
                         Toast.makeText(this, "$uid\n$nickname", Toast.LENGTH_SHORT).show()
-                        G.userAccount?.uid = uid
-                        G.userAccount?.uid = nickname
+                        userId= uid
+                        userNick = nickname
+                        G.userAccount= UserAccount(uid = userId!!, nickname = userNick!!)
+                        serverUpload()
 
                         //로그인 되었으니..
                         startActivity(Intent(this, MainActivity::class.java))
@@ -140,8 +146,7 @@ class LoginActivity : AppCompatActivity() {
     private fun clickNaverLogin(){
         //네이버 토큰을 받을 변수를 설정합니다.
         var naverToken :String? = ""
-        var userId : String? = ""
-        var userNick : String? = ""
+
 
         val profileCallback = object : NidProfileCallback<NidProfileResponse> {
             override fun onSuccess(response: NidProfileResponse) {

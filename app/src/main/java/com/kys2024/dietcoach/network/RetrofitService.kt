@@ -16,6 +16,8 @@ interface RetrofitService {
     @POST("/DietCoach/usertable.php")
     fun postdataToServer(@PartMap dataPart:Map<String, String>,
                          @Part filePart: MultipartBody.Part?): Call<String>
+
+    @POST("/DietCoach/loadDB.php")
     //2. GET방식으로 json array 데이터를 받아와서 파싱하여 결과 받는 코드 만들어줘..
     @GET("/DietCoach/board.php")
     fun loadDataFromServer() :Call<List<MarketItem>>
