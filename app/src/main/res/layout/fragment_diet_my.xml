@@ -12,10 +12,10 @@
 
     <ImageView
         android:id="@+id/iv_profile"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/ic_action_my"
+        android:src="@drawable/ic_action_my"
         android:layout_centerHorizontal="true"
         />
 
@@ -30,6 +30,7 @@
 
     <TextView
         android:id="@+id/tv_nickname"
+        android:layout_marginTop="20dp"
         android:layout_width="150dp"
         android:layout_height="40dp"
         android:background="@color/whitegreen"
