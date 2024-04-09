@@ -74,8 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         drawerName.setOnClickListener {
-            drawerName.text = "New Name"
-        }
 
+        }
     } // onCreate..
 }
