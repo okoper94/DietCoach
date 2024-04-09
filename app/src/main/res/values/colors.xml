@@ -3,6 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#35A29F</color>
+    <color name="whitegreen">#8DDCD9</color>
     <color name="deepgreen">#04364A</color>
+    <color name="pastel_rainbow1">#F8C7D9</color>
+    <color name="pastel_rainbow2">#CBFDF9</color>
+    <color name="pastel_rainbow3">#CEE8FF</color>
 
 </resources>
