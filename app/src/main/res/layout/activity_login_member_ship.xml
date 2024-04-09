@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.LoginMemberShipActivity"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -105,7 +106,7 @@
         android:text="회원가입"
         android:textStyle="bold"
         android:textSize="17sp"
-        android:background="#2E4CF4"/>
+        android:backgroundTint="@color/green"/>
 
 
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group1">
+        <item android:id="@+id/bmi_go" android:title="BMI 측정하러 가기" android:icon="@drawable/baseline_accessibility_new_24"/>
+    </group>
+
+    <group android:id="@+id/group2">
+        <item android:id="@+id/drawer_logout" android:title="로그아웃" android:icon="@drawable/baseline_logout_24"/>
+    </group>
+
+</menu>

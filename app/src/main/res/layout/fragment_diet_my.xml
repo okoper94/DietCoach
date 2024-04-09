@@ -5,17 +5,19 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MyInformationActivity">
+    tools:context=".activity.MyInformationActivity"
+    android:background="@color/white">
 
 
 
     <ImageView
         android:id="@+id/iv_profile"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/ic_action_my"
-        android:layout_centerHorizontal="true"/>
+        android:src="@drawable/ic_action_my"
+        android:layout_centerHorizontal="true"
+        />
 
     <ImageView
         android:id="@+id/iv_editing"
@@ -28,9 +30,10 @@
 
     <TextView
         android:id="@+id/tv_nickname"
+        android:layout_marginTop="20dp"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:background="#75EFE4"
+        android:background="@color/whitegreen"
         android:text="다이어트 좋아님"
         android:gravity="center"
         android:layout_below="@id/iv_profile"
@@ -52,7 +55,7 @@
         android:id="@+id/tv_kcal"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:background="#75EFE4"
+        android:background="@color/whitegreen"
         android:text="2400kcal"
         android:gravity="center"
         android:layout_below="@id/tv_goals_kcal"
@@ -125,7 +128,7 @@
         android:id="@+id/tv_kcal2"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:background="#75EFE4"
+        android:background="@color/whitegreen"
         android:text="저장하기"
         android:gravity="center"
         android:layout_marginTop="80dp"

@@ -23,6 +23,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.MyInformationActivity"
+
             android:exported="false" />
         <activity
             android:name=".activity.LoginMemberShipActivity"

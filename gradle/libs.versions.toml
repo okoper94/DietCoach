@@ -11,6 +11,7 @@ material = "1.11.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
 materialCalendarview = "2.0.1"
+mpandroidchart = "v3.1.0"
 retrofit = "2.11.0"
 converterScalars = "2.11.0"
 converterGson = "2.11.0"
@@ -21,6 +22,8 @@ firebaseAuthKtx = "22.3.1"
 playServicesAuth = "21.0.0"
 oauth = "5.9.1"
 glide = "5.0.0-rc01"
+circleimageview = "3.1.0"
+
 
 
 
@@ -36,6 +39,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 material-calendarview2 = { module = "com.github.prolificinteractive:material-calendarview", version.ref = "materialCalendarview" }
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "converterScalars" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converterGson" }
@@ -46,6 +50,10 @@ firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx",
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
 oauth = { group = "com.navercorp.nid", name = "oauth", version.ref = "oauth" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+
+
+circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
+
 
 
 
