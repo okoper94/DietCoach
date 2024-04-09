@@ -14,6 +14,7 @@ mpandroidchart = "v3.1.0"
 retrofit = "2.11.0"
 converterScalars = "2.11.0"
 converterGson = "2.11.0"
+glide = "5.0.0-rc01"
 
 
 
@@ -32,6 +33,7 @@ mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "converterScalars" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converterGson" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 
 
 
