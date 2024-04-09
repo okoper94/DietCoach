@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.1"
+googleFirebaseBom = "32.8.0"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
 junit = "4.13.2"
@@ -14,13 +15,19 @@ mpandroidchart = "v3.1.0"
 retrofit = "2.11.0"
 converterScalars = "2.11.0"
 converterGson = "2.11.0"
-glide = "5.0.0-rc01"
+v2User = "2.20.1"
+firebaseBomVersion = "32.3.1"
+firebaseAnalyticsKtx = "21.6.1"
+firebaseAuthKtx = "22.3.1"
+playServicesAuth = "21.0.0"
+oauth = "5.9.1"
 
 
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+firebase-bom-v3280 = { module = "com.google.firebase:firebase-bom", version.ref = "googleFirebaseBom" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -33,7 +40,12 @@ mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "converterScalars" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converterGson" }
-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+v2-user = { module = "com.kakao.sdk:v2-user", version.ref = "v2User" }
+google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBomVersion" }
+firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx", version.ref = "firebaseAnalyticsKtx" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
+oauth = { group = "com.navercorp.nid", name = "oauth", version.ref = "oauth" }
 
 
 
