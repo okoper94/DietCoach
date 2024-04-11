@@ -20,7 +20,6 @@ import com.kys2024.dietcoach.fragments.DietCalendarFragment
 import com.kys2024.dietcoach.fragments.DietHomeFragment
 import com.kys2024.dietcoach.fragments.DietMyFragment
 import com.kys2024.dietcoach.network.FoodApiService
-import com.kys2024.dietcoach.network.RetrofitHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -89,28 +88,28 @@ class MainActivity : AppCompatActivity() {
         }
     } // onCreate..
 
-    private fun fetchFoodData(query: String) {
-        val retrofit = RetrofitHelper.getRetrofitInstance("https://api.odcloud.kr/api/")
-        val foodApiService = retrofit.create(FoodApiService::class.java)
-        val call = foodApiService.getFoods()
-
-        call.enqueue(object : Callback<FoodResponse> {
-            override fun onResponse(call: Call<FoodResponse>, response: Response<FoodResponse>) {
-                if (response.isSuccessful) {
-                    val foodResponse = response.body()
-                    if (foodResponse != null) {
-                        foodDataList = foodResponse.data
-                        val filteredList = foodDataList.filter { it.foodName.contains(query, ignoreCase = true) }
-                        foodDataAdapter.updateData(filteredList)
-                    }
-                } else {
-                    Toast.makeText(this@MainActivity, "Failed to fetch data", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<FoodResponse>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
+//    private fun fetchFoodData(query: String) {
+//        val retrofit = RetrofitHelper2.getRetrofitInstance("https://api.odcloud.kr/api/")
+//        val foodApiService = retrofit.create(FoodApiService::class.java)
+//        val call = foodApiService.getFoods()
+//
+//        call.enqueue(object : Callback<FoodResponse> {
+//            override fun onResponse(call: Call<FoodResponse>, response: Response<FoodResponse>) {
+//                if (response.isSuccessful) {
+//                    val foodResponse = response.body()
+//                    if (foodResponse != null) {
+//                        foodDataList = foodResponse.data
+//                        val filteredList = foodDataList.filter { it.foodName.contains(query, ignoreCase = true) }
+//                        foodDataAdapter.updateData(filteredList)
+//                    }
+//                } else {
+//                    Toast.makeText(this@MainActivity, "Failed to fetch data", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<FoodResponse>, t: Throwable) {
+//                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//    }
 }
