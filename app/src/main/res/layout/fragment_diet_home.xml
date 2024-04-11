@@ -124,7 +124,7 @@
     </LinearLayout>
 
     <RelativeLayout
-
+        android:id="@+id/relative_layout_morning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -163,7 +163,7 @@
 
 
     <RelativeLayout
-
+        android:id="@+id/relative_layout_lunch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -201,7 +201,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-
+        android:id="@+id/relative_layout_dinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -231,9 +231,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_add_24"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_add_24" />
 
 
     </RelativeLayout>
