@@ -24,11 +24,6 @@
             android:exported="false" />
         <activity
             android:name=".activity.MyInformationActivity"
-
-
-
-            android:name=".activity.NaverLogin"
-
             android:exported="false" />
         <activity
             android:name=".activity.LoginMemberShipActivity"
