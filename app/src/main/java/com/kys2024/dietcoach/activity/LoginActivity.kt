@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
         userId= uid
         userNick = nickname
         G.userAccount= UserAccount(uid = userId!!, nickname = userNick!!)
-        serverUpload()
+        serverToLoginUpload()
 
         //main 화면으로 이동
         startActivity(Intent(this, MainActivity::class.java))
@@ -125,7 +125,7 @@ class LoginActivity : AppCompatActivity() {
                         userId= uid
                         userNick = nickname
                         G.userAccount= UserAccount(uid = userId!!, nickname = userNick!!)
-                        serverUpload()
+                        serverToLoginUpload()
 
                         //로그인 되었으니..
                         startActivity(Intent(this, MainActivity::class.java))
@@ -143,42 +143,40 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun clickNaverLogin(){
+    private fun clickNaverLogin() {
         //네이버 토큰을 받을 변수를 설정합니다.
-        var naverToken :String? = ""
+        var naverToken: String? = ""
 
 
         val profileCallback = object : NidProfileCallback<NidProfileResponse> {
             override fun onSuccess(response: NidProfileResponse) {
-                userId= response.profile?.id
+                userId = response.profile?.id
                 userNick = response.profile?.nickname
-                Log.d("naverlogin","id: ${userId} \ntoken: ${naverToken}")
+                Log.d("naverlogin", "id: ${userId} \ntoken: ${naverToken}")
 
 
                 Toast.makeText(this@LoginActivity, "네이버 아이디 로그인 성공!", Toast.LENGTH_SHORT).show()
-                G.userAccount= UserAccount(uid = userId!!, nickname = userNick!!)
-                Log.d("naverlogin2","id: ${G.userAccount?.uid} \ntoken: ${naverToken}")
+                G.userAccount = UserAccount(uid = userId!!, nickname = userNick!!)
+                Log.d("naverlogin2", "id: ${G.userAccount?.uid} \ntoken: ${naverToken}")
 
-                    serverUpload()
-                    startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                serverToLoginUpload()
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
 
 
             }
+
             override fun onFailure(httpStatus: Int, message: String) {
                 val errorCode = NaverIdLoginSDK.getLastErrorCode().code
                 val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
-                Toast.makeText(this@LoginActivity, "errorCode: ${errorCode}\n" +
-                        "errorDescription: ${errorDescription}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@LoginActivity, "errorCode: ${errorCode}\n" +
+                            "errorDescription: ${errorDescription}", Toast.LENGTH_SHORT
+                ).show()
             }
+
             override fun onError(errorCode: Int, message: String) {
                 onFailure(errorCode, message)
             }
-
-
-
-
-
-
 
 
         }
@@ -191,29 +189,25 @@ class LoginActivity : AppCompatActivity() {
                 NidOAuthLogin().callProfileApi(profileCallback)
 
             }
+
             override fun onFailure(httpStatus: Int, message: String) {
                 val errorCode = NaverIdLoginSDK.getLastErrorCode().code
                 val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
-                Toast.makeText(this@LoginActivity, "errorCode: ${errorCode}\n" +
-                        "errorDescription: ${errorDescription}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@LoginActivity, "errorCode: ${errorCode}\n" +
+                            "errorDescription: ${errorDescription}", Toast.LENGTH_SHORT
+                ).show()
             }
+
             override fun onError(errorCode: Int, message: String) {
                 onFailure(errorCode, message)
             }
         }
 
         NaverIdLoginSDK.authenticate(this, oauthLoginCallback)
+    }//네이버 로그인
 
-
-
-
-
-
-
-
-    }
-
-    private fun serverUpload() {
+    fun serverToLoginUpload() {
 
         // 회원가입한 데이터들 받아와서 서버에 보내기
 
@@ -243,7 +237,16 @@ class LoginActivity : AppCompatActivity() {
 
         })
 
-    }
+    }//서버업로드
+
+
+
+
+
+
+
+
+
 
 
 
