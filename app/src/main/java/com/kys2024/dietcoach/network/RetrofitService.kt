@@ -1,7 +1,7 @@
 package com.psg2024.ex68retrofitmarketapp
 
+import com.kys2024.dietcoach.data.LoadUserData
 import com.kys2024.dietcoach.data.Logindata
-import com.kys2024.dietcoach.data.MarketItem
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -26,6 +26,6 @@ interface RetrofitService {
     fun uploadImage(@PartMap dataPart:Map<String, String>,
                     @Part filePart: MultipartBody.Part?): Call<String>
 
-    @GET("/DietCoach/board.php")
-    fun loadDataFromServer() :Call<List<MarketItem>>
+    @POST("/DietCoach/loadDB.php")
+    fun loadDataFromServer(@Body data: HashMap<String, String>) :Call<List<LoadUserData>>
 }

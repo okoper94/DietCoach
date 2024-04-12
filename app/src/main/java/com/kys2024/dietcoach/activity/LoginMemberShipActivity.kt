@@ -71,9 +71,9 @@ class LoginMemberShipActivity : AppCompatActivity() {
 
         // 먼저 String 데이터들은 Map collection 으로 묶어서 전송: @PartMap
         val dataPart: MutableMap<String, String> = mutableMapOf()
-        dataPart["userid"] = G.userAccount!!.uid
-        dataPart["nickname"] = G.userAccount!!.nickname
-        dataPart["password"] = G.userAccount!!.password
+        dataPart["userid"] = G.userAccount!!.uid.toString()
+        dataPart["nickname"] = G.userAccount!!.nickname.toString()
+        dataPart["password"] = G.userAccount!!.password.toString()
         dataPart["date"] = System.currentTimeMillis().toString()
 
 

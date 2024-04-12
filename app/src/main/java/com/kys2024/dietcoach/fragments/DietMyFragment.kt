@@ -21,7 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.activity.MyInformationActivity
-import com.kys2024.dietcoach.data.UserProflieImgUri
+import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.FragmentDietMyBinding
 import com.psg2024.ex68retrofitmarketapp.RetrofitService
 import okhttp3.MediaType
@@ -56,13 +56,14 @@ class DietMyFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(G.userProflieImgUri?.uri!=null){
-            val uri = G.userProflieImgUri!!.uri
-            Glide.with(requireContext()).load(uri).into(binding.ivProfile)
+        if(G.userAccount?.uri!=null){
+            val uri = Uri.parse(G.userAccount!!.uri)
+            Glide.with(requireContext()).load(uri).apply(RequestOptions().transform(CircleCrop())).into(binding.ivProfile)
         }
 
         binding.tvBmi.setOnClickListener { clickBmi() }
         binding.ivEditing.setOnClickListener { clickPhoto() }
+
 
 
 
@@ -139,7 +140,7 @@ class DietMyFragment:Fragment() {
         val retrofitService = retrofit.create(RetrofitService::class.java)
 
         val dataPart: MutableMap<String, String> = mutableMapOf()
-        dataPart["userid"] = G.userAccount!!.uid
+        dataPart["userid"] = G.userAccount!!.uid.toString()
 
         //3. 전송할 파일을 특별한 박스 (MultipartBody.Part객체)로 포장하기
         val file: File = File(imgPath)
@@ -151,8 +152,10 @@ class DietMyFragment:Fragment() {
 
         retrofitService.uploadImage(dataPart, filepart).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
-                val uri = Uri.parse(response.body())
-                G.userProflieImgUri = UserProflieImgUri(uri)
+                val uri = response.body()
+                G.userAccount = UserAccount(uri=uri)
+                Toast.makeText(requireContext(), "${G.userAccount!!.uri}", Toast.LENGTH_SHORT).show()
+
 
 
             }

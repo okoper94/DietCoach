@@ -84,25 +84,30 @@ class LoginActivity : AppCompatActivity() {
     //구글 로그인에 필요한 멤버변수
     // 구글 로그인화면 결과를 받아주는 대행사 등록
     val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        //로그인 결과를 가져온 인텐트 소환
-        val intent:Intent? = it.data
-        //인텐트로 부터 구글 계정 정보를 가져오는 작업자 객체를 소환
-        val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(intent)
+        if( it.resultCode == RESULT_OK ){
+            //로그인 결과를 가져온 인텐트 소환
+            val intent:Intent? = it.data
+            //인텐트로 부터 구글 계정 정보를 가져오는 작업자 객체를 소환
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(intent)
 
-        //작업자로부터 계정 받기
-        val account: GoogleSignInAccount = task.result
-        val uid:String = account.id.toString()
-        val nickname:String= account.displayName ?: ""
+            //작업자로부터 계정 받기
+            val account: GoogleSignInAccount = task.result
+            val uid:String = account.id.toString()
+            val nickname:String= account.displayName ?: ""
 
-        Toast.makeText(this, "$uid\n$nickname", Toast.LENGTH_SHORT).show()
-        userId= uid
-        userNick = nickname
-        G.userAccount= UserAccount(uid = userId!!, nickname = userNick!!)
-        serverToLoginUpload()
+            Toast.makeText(this, "$uid\n$nickname", Toast.LENGTH_SHORT).show()
+            userId= uid
+            userNick = nickname
+            G.userAccount= UserAccount(uid = userId!!, nickname = userNick!!)
+            serverToLoginUpload()
 
-        //main 화면으로 이동
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
+            //main 화면으로 이동
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        } else {
+            Toast.makeText(this, "로그인 취소", Toast.LENGTH_SHORT).show()
+        }
+        
 
     }
     //구글 로그인에 필요한 멤버변수
@@ -217,9 +222,9 @@ class LoginActivity : AppCompatActivity() {
 
         // 먼저 String 데이터들은 Map collection 으로 묶어서 전송: @PartMap
         val dataPart: MutableMap<String, String> = mutableMapOf()
-        dataPart["userid"] = G.userAccount!!.uid
-        dataPart["nickname"] = G.userAccount!!.nickname
-        dataPart["password"] = G.userAccount!!.password
+        dataPart["userid"] = G.userAccount!!.uid.toString()
+        dataPart["nickname"] = G.userAccount!!.nickname.toString()
+        dataPart["password"] = G.userAccount!!.password.toString()
         dataPart["date"] = System.currentTimeMillis().toString()
 
 

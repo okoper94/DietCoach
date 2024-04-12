@@ -10,22 +10,30 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.adapter.FoodDataAdapter
 import com.kys2024.dietcoach.data.FoodData
 import com.kys2024.dietcoach.data.FoodResponse
+import com.kys2024.dietcoach.data.LoadUserData
+import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.ActivityMainBinding
 import com.kys2024.dietcoach.fragments.DietBoardFragment
 import com.kys2024.dietcoach.fragments.DietCalendarFragment
 import com.kys2024.dietcoach.fragments.DietHomeFragment
 import com.kys2024.dietcoach.fragments.DietMyFragment
 import com.kys2024.dietcoach.network.FoodApiService
+import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper2
+import com.psg2024.ex68retrofitmarketapp.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class MainActivity : AppCompatActivity() {
+
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -40,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
+
         supportFragmentManager.beginTransaction().add(R.id.container_fragment,DietHomeFragment()).commit()
 
         binding.bottomnavigation.setOnItemSelectedListener {
@@ -51,6 +61,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+
 
         drawerLayout = binding.drawerLayout
         toolbar = binding.toolbar
@@ -89,6 +101,36 @@ class MainActivity : AppCompatActivity() {
 
         }
     } // onCreate..
+
+    override fun onResume() {
+        super.onResume()
+        loadDB()
+    }
+
+    private fun loadDB() {
+        val retrofit = RetrofitHelper.getRetrofitInstance()
+        val retrofitService = retrofit.create(RetrofitService::class.java)
+
+        val data :HashMap<String,String> = hashMapOf()
+        data["userid"] = G.userAccount!!.uid.toString()
+        retrofitService.loadDataFromServer(data).enqueue(object : Callback<List<LoadUserData>>{
+            override fun onResponse(
+                p0: Call<List<LoadUserData>>,
+                p1: Response<List<LoadUserData>>
+            ) {
+                val list = p1.body()
+                list?.forEach { G.userAccount = UserAccount(uri = it.profileimg, nickname = it.nickname)
+                }
+                Toast.makeText(this@MainActivity, "저장", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onFailure(p0: Call<List<LoadUserData>>, p1: Throwable) {
+                Toast.makeText(this@MainActivity, "${p1.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
 
 //    private fun fetchFoodData(query: String) {
 //        val retrofit = RetrofitHelper2.getRetrofitInstance("https://api.odcloud.kr/api/")
