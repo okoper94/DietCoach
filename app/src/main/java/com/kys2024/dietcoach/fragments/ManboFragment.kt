@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.ViewTarget
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.databinding.FragmentManboBinding
 
