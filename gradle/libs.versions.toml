@@ -1,5 +1,7 @@
 [versions]
 agp = "8.3.2"
+circleimageview = "3.1.0"
+circleimageviewVersion = "3.1.0'"
 googleFirebaseBom = "32.8.0"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
@@ -16,13 +18,13 @@ retrofit = "2.11.0"
 converterScalars = "2.11.0"
 converterGson = "2.11.0"
 v2User = "2.20.1"
-firebaseBomVersion = "32.3.1"
-firebaseAnalyticsKtx = "21.6.1"
-firebaseAuthKtx = "22.3.1"
 playServicesAuth = "21.0.0"
 oauth = "5.9.1"
-glide = "5.0.0-rc01"
-circleimageview = "3.1.0"
+firebaseAuthKtx = "22.3.1"
+glide = "6.10.2"
+glideVersion = "5.0.0-rc01"
+
+
 
 
 
@@ -30,7 +32,9 @@ circleimageview = "3.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 firebase-bom-v3280 = { module = "com.google.firebase:firebase-bom", version.ref = "googleFirebaseBom" }
+hdodenhof-circleimageview = { module = "implementation 'de.hdodenhof:circleimageview", version.ref = "circleimageviewVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -44,15 +48,11 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "converterScalars" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converterGson" }
 v2-user = { module = "com.kakao.sdk:v2-user", version.ref = "v2User" }
-google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBomVersion" }
-firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx", version.ref = "firebaseAnalyticsKtx" }
-firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
 oauth = { group = "com.navercorp.nid", name = "oauth", version.ref = "oauth" }
-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
 
-
-circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
 
 
 

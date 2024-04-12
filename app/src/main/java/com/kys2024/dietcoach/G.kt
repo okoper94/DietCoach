@@ -10,6 +10,6 @@ class G {
 
         var marketItem: MarketItem? =null
 
-
+        val stepCount: Int = 0
     }
 }
