@@ -20,6 +20,7 @@ import com.kys2024.dietcoach.fragments.DietCalendarFragment
 import com.kys2024.dietcoach.fragments.DietHomeFragment
 import com.kys2024.dietcoach.fragments.DietMyFragment
 import com.kys2024.dietcoach.network.FoodApiService
+import com.psg2024.ex68retrofitmarketapp.RetrofitHelper2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
