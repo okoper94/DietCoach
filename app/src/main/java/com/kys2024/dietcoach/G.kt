@@ -1,12 +1,14 @@
 package com.kys2024.dietcoach
 
+import com.kys2024.dietcoach.data.MarketItem
 import com.kys2024.dietcoach.data.UserAccount
 
-class G { val a:String="10"
+class G {
     companion object {
-        lateinit var user: Any
-
         var userAccount: UserAccount? = null
+
+
+        var marketItem: MarketItem? =null
 
 
     }

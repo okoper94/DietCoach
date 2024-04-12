@@ -19,11 +19,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-
             android:name=".activity.CarenderViewActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MyInformationActivity"
+
             android:exported="false" />
         <activity
             android:name=".activity.LoginMemberShipActivity"
