@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+
         supportFragmentManager.beginTransaction().add(R.id.container_fragment,DietHomeFragment()).commit()
 
         binding.bottomnavigation.setOnItemSelectedListener {

@@ -21,6 +21,11 @@ interface RetrofitService {
     @POST("/DietCoach/emailLogin.php")
     fun postLogindataToServer(@Body data: HashMap<String, String>): Call<String>
 
+    @Multipart
+    @POST("/DietCoach/imgupload.php")
+    fun uploadImage(@PartMap dataPart:Map<String, String>,
+                    @Part filePart: MultipartBody.Part?): Call<String>
+
     @GET("/DietCoach/board.php")
     fun loadDataFromServer() :Call<List<MarketItem>>
 }
