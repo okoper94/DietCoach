@@ -23,7 +23,10 @@ oauth = "5.9.1"
 firebaseAuthKtx = "22.3.1"
 glide = "6.10.2"
 glideVersion = "5.0.0-rc01"
-
+glide = "5.0.0-rc01"
+circleimageview = "3.1.0"
+tensorflowLiteSupport = "0.1.0"
+tensorflowLiteMetadata = "0.1.0"
 
 
 
@@ -52,6 +55,9 @@ play-services-auth = { group = "com.google.android.gms", name = "play-services-a
 oauth = { group = "com.navercorp.nid", name = "oauth", version.ref = "oauth" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
+circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
+tensorflow-lite-support = { group = "org.tensorflow", name = "tensorflow-lite-support", version.ref = "tensorflowLiteSupport" }
+tensorflow-lite-metadata = { group = "org.tensorflow", name = "tensorflow-lite-metadata", version.ref = "tensorflowLiteMetadata" }
 
 
 

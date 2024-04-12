@@ -12,11 +12,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
+import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.ActivityLoginBinding
 import com.kys2024.dietcoach.databinding.ActivityLoginMemberShipBinding
+import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
+import com.psg2024.ex68retrofitmarketapp.RetrofitService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginMemberShipActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
 
     private val binding by lazy { ActivityLoginMemberShipBinding.inflate(layoutInflater) }
 
@@ -50,24 +55,42 @@ class LoginMemberShipActivity : AppCompatActivity() {
             binding.inputLayoutPasswordCheck.editText!!.selectAll()
             return
         }
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    AlertDialog.Builder(this)
-                        .setMessage("축하합니다 \n회원가입이 완료되었습니다")
-                        .setPositiveButton("확인", { _, _ -> finish() })
-                        .create().show()
-                } else {
-                    Toast.makeText(this, "실패", Toast.LENGTH_SHORT).show()
-                }
-            }
 
-
-
-
-
-//             다 성공했으면  토큰발급, 서버연결 후  회원가입 정보,(email, Pw, 토큰값) 저장
-//             저장 후 sqlite에 내 정보들 저장해놓고 로그인 화면으로 이동
+        G.userAccount = UserAccount(email, password)
+        serverToLoginUpload()
 
     }
+
+    fun serverToLoginUpload() {
+
+        // 회원가입한 데이터들 받아와서 서버에 보내기
+
+        // 레트로핏 작업 5단계..
+        val retrofit = RetrofitHelper.getRetrofitInstance()
+        val retrofitService = retrofit.create(RetrofitService::class.java)
+
+        // 먼저 String 데이터들은 Map collection 으로 묶어서 전송: @PartMap
+        val dataPart: MutableMap<String, String> = mutableMapOf()
+        dataPart["userid"] = G.userAccount!!.uid
+        dataPart["nickname"] = G.userAccount!!.nickname
+        dataPart["password"] = G.userAccount!!.password
+        dataPart["date"] = System.currentTimeMillis().toString()
+
+
+        //네트워크 작업 시작
+        retrofitService.postdataToServer(dataPart, null).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                val s = response.body()
+                Toast.makeText(this@LoginMemberShipActivity, "\"축하합니다 \n회원가입이 완료되었습니다\"$s", Toast.LENGTH_SHORT).show()
+                finish()// 업로드가 완료되면 액티비티 종료
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Toast.makeText(this@LoginMemberShipActivity, "실패:${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+    }//서버업로드
+
 }
