@@ -19,6 +19,7 @@ import com.kys2024.dietcoach.fragments.DietBoardFragment
 import com.kys2024.dietcoach.fragments.DietCalendarFragment
 import com.kys2024.dietcoach.fragments.DietHomeFragment
 import com.kys2024.dietcoach.fragments.DietMyFragment
+import com.kys2024.dietcoach.fragments.ManboFragment
 import com.kys2024.dietcoach.network.FoodApiService
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper2
 import retrofit2.Call
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_bnv_home ->supportFragmentManager.beginTransaction().replace(R.id.container_fragment,DietHomeFragment()).commit()
                 R.id.menu_bnv_board ->supportFragmentManager.beginTransaction().replace(R.id.container_fragment, DietBoardFragment()).commit()
                 R.id.menu_bnv_calendar ->supportFragmentManager.beginTransaction().replace(R.id.container_fragment,DietCalendarFragment()).commit()
-                R.id.menu_bnv_my ->supportFragmentManager.beginTransaction().replace(R.id.container_fragment,DietMyFragment()).commit()
+                R.id.menu_bnv_manbo ->supportFragmentManager.beginTransaction().replace(R.id.container_fragment,ManboFragment()).commit()
             }
             true
         }
