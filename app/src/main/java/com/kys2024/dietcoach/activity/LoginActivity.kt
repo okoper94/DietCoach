@@ -105,7 +105,7 @@ class LoginActivity : AppCompatActivity() {
         finish()
 
     }
-    //구글 로그인에 필요한 멤버변수
+
 
     private fun clickKakaoLogin(){
 
