@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="16dp">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -77,7 +78,9 @@
         android:layout_height="wrap_content"
         android:text="select image"
         style="@style/Widget.MaterialComponents.Button"
-        android:layout_gravity="end"/>
+        android:layout_gravity="end"
+        android:backgroundTint="@color/green"
+        android:layout_margin="16dp"/>
     <ImageView
         android:id="@+id/iv"
         android:layout_width="match_parent"
