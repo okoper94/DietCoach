@@ -22,14 +22,9 @@ import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
 import com.psg2024.ex68retrofitmarketapp.RetrofitService
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
-import java.util.Date
 
 
 class LoginActivity : AppCompatActivity() {
@@ -161,7 +156,7 @@ class LoginActivity : AppCompatActivity() {
 
 
                 Toast.makeText(this@LoginActivity, "네이버 아이디 로그인 성공!", Toast.LENGTH_SHORT).show()
-                G.userAccount = UserAccount(uid = userId!!, nickname = userNick!!)
+                G.userAccount = UserAccount(uid = userId, nickname = userNick)
                 Log.d("naverlogin2", "id: ${G.userAccount?.uid} \ntoken: ${naverToken}")
 
                 serverToLoginUpload()
