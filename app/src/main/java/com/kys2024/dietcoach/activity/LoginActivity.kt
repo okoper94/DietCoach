@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-        binding.tvDool.setOnClickListener { clickDool()}
+
 
 
         binding.layoutEmailLogin.setOnClickListener{ clickEmailLogin()}

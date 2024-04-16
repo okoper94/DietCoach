@@ -1,5 +1,6 @@
 package com.kys2024.dietcoach.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -129,6 +130,7 @@ class MainActivity : AppCompatActivity() {
         data["userid"] = G.userAccount!!.uid.toString()
         retrofitService.loadDataFromServer(data).enqueue(object : Callback<LoadUserData>{
 
+            @SuppressLint("SuspiciousIndentation")
             override fun onResponse(p0: Call<LoadUserData>, p1: Response<LoadUserData>) {
                 val s = p1.body()
                 if(s!=null)
