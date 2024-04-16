@@ -22,14 +22,9 @@ import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
 import com.psg2024.ex68retrofitmarketapp.RetrofitService
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
-import java.util.Date
 
 
 class LoginActivity : AppCompatActivity() {
@@ -221,15 +216,15 @@ class LoginActivity : AppCompatActivity() {
         val retrofitService = retrofit.create(RetrofitService::class.java)
 
         // 먼저 String 데이터들은 Map collection 으로 묶어서 전송: @PartMap
-        val dataPart: MutableMap<String, String> = mutableMapOf()
-        dataPart["userid"] = G.userAccount!!.uid.toString()
-        dataPart["nickname"] = G.userAccount!!.nickname.toString()
-        dataPart["password"] = G.userAccount!!.password.toString()
-        dataPart["date"] = System.currentTimeMillis().toString()
+        val data: HashMap<String, String> = hashMapOf()
+        data["userid"] = G.userAccount!!.uid.toString()
+        data["nickname"] = G.userAccount!!.nickname.toString()
+        data["password"] = G.userAccount!!.password.toString()
+        data["date"] = System.currentTimeMillis().toString()
 
 
         //네트워크 작업 시작
-        retrofitService.postdataToServer(dataPart, null).enqueue(object : Callback<String> {
+        retrofitService.postdataToServer(data).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 val s = response.body()
                 Toast.makeText(this@LoginActivity, "성공$s", Toast.LENGTH_SHORT).show()
