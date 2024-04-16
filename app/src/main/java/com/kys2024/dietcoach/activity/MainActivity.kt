@@ -118,7 +118,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         loadDB()
     }
 
@@ -128,19 +127,19 @@ class MainActivity : AppCompatActivity() {
 
         val data :HashMap<String,String> = hashMapOf()
         data["userid"] = G.userAccount!!.uid.toString()
-        if(data["userid"]!=""){
         retrofitService.loadDataFromServer(data).enqueue(object : Callback<LoadUserData>{
+
             override fun onResponse(p0: Call<LoadUserData>, p1: Response<LoadUserData>) {
-                var result = p1.body()
-                G.userAccount = UserAccount(uri = result!!.profileimg, nickname = result.nickname)
-                Toast.makeText(this@MainActivity, "성공", Toast.LENGTH_SHORT).show()
+                val s = p1.body()
+                if(s!=null)
+                G.userAccount = UserAccount(uri = s.profileimg, nickname = s.nickname)
             }
 
             override fun onFailure(p0: Call<LoadUserData>, p1: Throwable) {
                 Toast.makeText(this@MainActivity, "${p1.message}", Toast.LENGTH_SHORT).show()
             }
+
         })
-    }
     }
 
 
