@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
         binding.layoutEmailLogin.setOnClickListener{ clickEmailLogin()}
         binding.layoutGoogleLogin.setOnClickListener{ clickGoogleLogin()}
         binding.layoutKakaoLogin.setOnClickListener{ clickKakaoLogin()}
-        binding.buttonOAuthLoginImg.setOnClickListener{ clickNaverLogin() }
+        binding.layoutNaverLogin.setOnClickListener{ clickNaverLogin() }
         binding.tvLogin.setOnClickListener { clickSignup() }
 
 

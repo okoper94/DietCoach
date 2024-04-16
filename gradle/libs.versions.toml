@@ -21,7 +21,6 @@ v2User = "2.20.1"
 playServicesAuth = "21.0.0"
 oauth = "5.9.1"
 firebaseAuthKtx = "22.3.1"
-glide = "6.10.2"
 glideVersion = "5.0.0-rc01"
 tensorflowLiteSupport = "0.1.0"
 tensorflowLiteMetadata = "0.1.0"
@@ -34,8 +33,6 @@ tensorflowLiteMetadata = "0.1.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
-firebase-bom-v3280 = { module = "com.google.firebase:firebase-bom", version.ref = "googleFirebaseBom" }
-hdodenhof-circleimageview = { module = "implementation 'de.hdodenhof:circleimageview", version.ref = "circleimageviewVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
