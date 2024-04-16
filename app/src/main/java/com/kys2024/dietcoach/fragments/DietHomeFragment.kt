@@ -16,6 +16,8 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.animation.Easing
@@ -50,6 +52,11 @@ class DietHomeFragment:Fragment() {
             PieEntry(40f, "단백질"),
             PieEntry(15f, "지방")
         )
+
+        if (binding.bkcal.text == ""){
+            binding.plus.isInvisible
+            binding.refresh.isVisible
+        }
 
         val dataSet = PieDataSet(dataList, "")
         dataSet.colors = listOf(

@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/white">
+    android:padding="16dp">
 
 
     <com.github.mikephil.charting.charts.PieChart
@@ -13,8 +13,7 @@
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
-        />
+        android:layout_marginBottom="16dp" />
 
 
     <LinearLayout
@@ -141,22 +140,34 @@
 
 
         <TextView
+            android:id="@+id/bkcal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="500Kcal"
             android:layout_below="@id/tv_breakfast"
+            android:layout_gravity="center"
+            android:paddingLeft="8dp"
+            android:text=""
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingLeft="8dp"/>
+            android:textStyle="bold" />
 
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_add_24"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
+        <ImageView
+            android:id="@+id/break_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_add_24"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/break_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_cached_24"
+            android:visibility="invisible" />
 
 
     </RelativeLayout>
@@ -180,22 +191,32 @@
 
 
         <TextView
+            android:id="@+id/lunch_kcal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="500Kcal"
             android:layout_below="@id/tv_lunch"
+            android:layout_gravity="center"
+            android:paddingLeft="8dp"
+            android:text="500Kcal"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingLeft="8dp"/>
+            android:textStyle="bold" />
 
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_add_24"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_add_24" />
+
+        <ImageView
+            android:id="@+id/lunch_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_cached_24"
+            android:visibility="invisible" />
 
 
     </RelativeLayout>
@@ -220,20 +241,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="500Kcal"
             android:layout_below="@id/tv_dinner"
+            android:layout_gravity="center"
+            android:paddingLeft="8dp"
+            android:text="500Kcal"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingLeft="8dp"/>
+            android:textStyle="bold" />
 
 
         <ImageView
+            android:id="@+id/dinner_kcal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/baseline_add_24" />
+
+        <ImageView
+            android:id="@+id/dinner_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_cached_24"
+            android:visibility="invisible" />
 
 
     </RelativeLayout>

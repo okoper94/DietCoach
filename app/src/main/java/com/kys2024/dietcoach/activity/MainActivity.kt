@@ -67,6 +67,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
         drawerLayout = binding.drawerLayout
         toolbar = binding.toolbar
         navigationView = binding.navigationView
@@ -102,6 +104,8 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        navigationView
 
         val headerView = navigationView.getHeaderView(0)
 
