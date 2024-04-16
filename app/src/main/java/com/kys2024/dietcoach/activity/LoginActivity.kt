@@ -156,7 +156,7 @@ class LoginActivity : AppCompatActivity() {
 
 
                 Toast.makeText(this@LoginActivity, "네이버 아이디 로그인 성공!", Toast.LENGTH_SHORT).show()
-                G.userAccount = UserAccount(uid = userId!!, nickname = userNick!!)
+                G.userAccount = UserAccount(uid = userId, nickname = userNick)
                 Log.d("naverlogin2", "id: ${G.userAccount?.uid} \ntoken: ${naverToken}")
 
                 serverToLoginUpload()

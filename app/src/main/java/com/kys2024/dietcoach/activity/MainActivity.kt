@@ -127,18 +127,15 @@ class MainActivity : AppCompatActivity() {
 
         val data :HashMap<String,String> = hashMapOf()
         data["userid"] = G.userAccount!!.uid.toString()
-        retrofitService.loadDataFromServer(data).enqueue(object : Callback<List<LoadUserData>>{
-            override fun onResponse(
-                p0: Call<List<LoadUserData>>,
-                p1: Response<List<LoadUserData>>
-            ) {
-                val list = p1.body()
-                list?.forEach { G.userAccount = UserAccount(uri = it.profileimg, nickname = it.nickname)
-                }
-                Toast.makeText(this@MainActivity, "저장", Toast.LENGTH_SHORT).show()
+        retrofitService.loadDataFromServer(data).enqueue(object : Callback<LoadUserData>{
+
+            override fun onResponse(p0: Call<LoadUserData>, p1: Response<LoadUserData>) {
+                val s = p1.body()
+                if(s!=null)
+                G.userAccount = UserAccount(uri = s.profileimg, nickname = s.nickname)
             }
 
-            override fun onFailure(p0: Call<List<LoadUserData>>, p1: Throwable) {
+            override fun onFailure(p0: Call<LoadUserData>, p1: Throwable) {
                 Toast.makeText(this@MainActivity, "${p1.message}", Toast.LENGTH_SHORT).show()
             }
 
