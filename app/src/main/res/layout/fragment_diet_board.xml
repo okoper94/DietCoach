@@ -22,25 +22,11 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="4dp"
-            android:text="글쓰기"
-            android:layout_alignParentRight="true"
-            android:backgroundTint="@color/green"/>
+
 
     </RelativeLayout>
 
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="하루 식단 인증"
-        android:layout_marginBottom="8dp"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+
 
     <Button
         android:id="@+id/btn"
