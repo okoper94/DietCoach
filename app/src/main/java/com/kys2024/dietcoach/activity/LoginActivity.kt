@@ -59,10 +59,6 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
-    private fun clickDool(){
-        startActivity(Intent(this,MainActivity::class.java))
-
-    }
 
     private fun clickEmailLogin(){
         startActivity(Intent(this,LoginEmailActivity::class.java))
