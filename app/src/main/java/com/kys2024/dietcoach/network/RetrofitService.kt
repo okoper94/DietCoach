@@ -14,10 +14,9 @@ import retrofit2.http.PartMap
 interface RetrofitService {
 
     // 1. POST방식으로 데이터를 보내기..
-    @Multipart
+
     @POST("/DietCoach/usertable.php")
-    fun postdataToServer(@PartMap dataPart:Map<String, String>,
-                         @Part filePart: MultipartBody.Part?): Call<String>
+    fun postdataToServer(@Body data: HashMap<String, String>): Call<String>
     @POST("/DietCoach/emailLogin.php")
     fun postLogindataToServer(@Body data: HashMap<String, String>): Call<String>
 
@@ -25,7 +24,11 @@ interface RetrofitService {
     @POST("/DietCoach/imgupload.php")
     fun uploadImage(@PartMap dataPart:Map<String, String>,
                     @Part filePart: MultipartBody.Part?): Call<String>
+    @Multipart
+    @POST("/DietCoach/boardupload.php")
+    fun uploadboard(@PartMap dataPart:Map<String, String>,
+                    @Part filePart: MultipartBody.Part?): Call<String>
 
     @POST("/DietCoach/loadDB.php")
-    fun loadDataFromServer(@Body data: HashMap<String, String>) :Call<List<LoadUserData>>
+    fun loadDataFromServer(@Body data: HashMap<String, String>) :Call<LoadUserData>
 }
