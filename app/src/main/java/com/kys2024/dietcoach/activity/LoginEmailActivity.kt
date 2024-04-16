@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.data.Logindata
+import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.ActivityLoginBinding
 import com.kys2024.dietcoach.databinding.ActivityLoginEmailBinding
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
@@ -65,6 +66,7 @@ class LoginEmailActivity : AppCompatActivity() {
 
                 if (s.contains("성공")){
                     Toast.makeText(this@LoginEmailActivity, "$s", Toast.LENGTH_SHORT).show()
+                    G.userAccount= UserAccount(uid=email)
                     startActivity(Intent(this@LoginEmailActivity, MainActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     finish()
