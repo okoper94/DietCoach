@@ -1,12 +1,12 @@
 package com.kys2024.dietcoach.data
 
-data class MarketItem(
-    var no: Int,
+data class LoadUserData(
+    var no: Int =0,
     var userid: String = "test_userid",
     var nickname: String ="test_nickname",
-    var title:String="test_title",
-    var msg:String="test_msg",
+    var password: String = "test_password",
+    var profileimg:String="test_profileimg",
     var date: String="test_date",
-    var file: String
+
 
 )
