@@ -6,12 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".activity.WriteBoardActivity">
+    tools:context=".activity.WriteBoardActivity"
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/write_line1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white">
 
         <ImageView
             android:id="@+id/write_iv_back"
@@ -44,7 +46,8 @@
         android:layout_height="300dp"
         android:layout_below="@id/write_line1"
         android:layout_marginTop="4dp"
-        android:background="@drawable/frame_write_board">
+        android:background="@drawable/frame_write_board"
+        android:backgroundTint="@color/white">
 
         <ImageView
             android:id="@+id/write_iv"
