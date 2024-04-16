@@ -3,7 +3,7 @@
 
     <item android:id="@+id/menu_bnv_home" android:title="홈" android:icon="@drawable/ic_action_home"/>
     <item android:id="@+id/menu_bnv_calendar" android:title="캘린더" android:icon="@drawable/ic_action_calendar"/>
-    <item android:id="@+id/menu_bnv_my" android:title="MY" android:icon="@drawable/ic_action_my"/>
+    <item android:id="@+id/menu_bnv_manbo" android:title="만보기" android:icon="@drawable/baseline_directions_walk_24"/>
     <item android:id="@+id/menu_bnv_board" android:title="게시판" android:icon="@drawable/ic_action_board"/>
 
 

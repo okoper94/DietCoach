@@ -2,24 +2,17 @@ package com.kys2024.dietcoach.activity
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.kys2024.dietcoach.G
-import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.data.UserAccount
-import com.kys2024.dietcoach.databinding.ActivityLoginBinding
 import com.kys2024.dietcoach.databinding.ActivityLoginMemberShipBinding
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
 import com.psg2024.ex68retrofitmarketapp.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Part
 
 class LoginMemberShipActivity : AppCompatActivity() {
 
@@ -70,19 +63,24 @@ class LoginMemberShipActivity : AppCompatActivity() {
         val retrofitService = retrofit.create(RetrofitService::class.java)
 
         // 먼저 String 데이터들은 Map collection 으로 묶어서 전송: @PartMap
-        val dataPart: MutableMap<String, String> = mutableMapOf()
-        dataPart["userid"] = G.userAccount!!.uid
-        dataPart["nickname"] = G.userAccount!!.nickname
-        dataPart["password"] = G.userAccount!!.password
-        dataPart["date"] = System.currentTimeMillis().toString()
+        val data: HashMap<String, String> = hashMapOf()
+        data["userid"] = G.userAccount!!.uid.toString()
+        data["nickname"] = G.userAccount!!.nickname.toString()
+        data["password"] = G.userAccount!!.password.toString()
+        data["date"] = System.currentTimeMillis().toString()
 
 
         //네트워크 작업 시작
-        retrofitService.postdataToServer(dataPart, null).enqueue(object : Callback<String> {
+        retrofitService.postdataToServer(data ).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 val s = response.body()
+                if (s!!.contains("성공")){
                 Toast.makeText(this@LoginMemberShipActivity, "\"축하합니다 \n회원가입이 완료되었습니다\"$s", Toast.LENGTH_SHORT).show()
-                finish()// 업로드가 완료되면 액티비티 종료
+                finish()}// 업로드가 완료되면 액티비티 종료
+                else{
+                    Toast.makeText(this@LoginMemberShipActivity, "이미 가입된 이메일 입니다", Toast.LENGTH_SHORT).show()
+                    return
+                }
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
