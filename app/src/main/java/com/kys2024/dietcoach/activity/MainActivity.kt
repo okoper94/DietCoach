@@ -14,6 +14,7 @@ import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.adapter.FoodDataAdapter
 import com.kys2024.dietcoach.data.FoodData
+import com.kys2024.dietcoach.data.FoodResponse
 import com.kys2024.dietcoach.data.LoadUserData
 import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.ActivityMainBinding
@@ -21,11 +22,15 @@ import com.kys2024.dietcoach.fragments.DietBoardFragment
 import com.kys2024.dietcoach.fragments.DietCalendarFragment
 import com.kys2024.dietcoach.fragments.DietHomeFragment
 import com.kys2024.dietcoach.fragments.DietMyFragment
+import com.kys2024.dietcoach.network.FoodApiService
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
+import com.psg2024.ex68retrofitmarketapp.RetrofitHelper2
 import com.psg2024.ex68retrofitmarketapp.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -99,7 +104,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         loadDB()
     }
 
@@ -109,19 +113,22 @@ class MainActivity : AppCompatActivity() {
 
         val data :HashMap<String,String> = hashMapOf()
         data["userid"] = G.userAccount!!.uid.toString()
-        if(data["userid"]!=""){
-        retrofitService.loadDataFromServer(data).enqueue(object : Callback<LoadUserData>{
-            override fun onResponse(p0: Call<LoadUserData>, p1: Response<LoadUserData>) {
-                val result = p1.body()
-                G.userAccount = UserAccount(uri = result!!.profileimg, nickname = result.nickname)
-                Toast.makeText(this@MainActivity, "성공", Toast.LENGTH_SHORT).show()
+        retrofitService.loadDataFromServer(data).enqueue(object : Callback<List<LoadUserData>>{
+            override fun onResponse(
+                p0: Call<List<LoadUserData>>,
+                p1: Response<List<LoadUserData>>
+            ) {
+                val list = p1.body()
+                list?.forEach { G.userAccount = UserAccount(uri = it.profileimg, nickname = it.nickname)
+                }
+                Toast.makeText(this@MainActivity, "저장", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onFailure(p0: Call<LoadUserData>, p1: Throwable) {
+            override fun onFailure(p0: Call<List<LoadUserData>>, p1: Throwable) {
                 Toast.makeText(this@MainActivity, "${p1.message}", Toast.LENGTH_SHORT).show()
             }
+
         })
-    }
     }
 
 

@@ -12,6 +12,7 @@ import com.psg2024.ex68retrofitmarketapp.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Part
 
 class LoginMemberShipActivity : AppCompatActivity() {
 
