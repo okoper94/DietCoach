@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.adapter.FoodDataAdapter
 import com.kys2024.dietcoach.data.FoodData
@@ -70,6 +72,18 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent( this, MyInformationActivity::class.java )
                     startActivity( intent )
                     drawerLayout.closeDrawer( GravityCompat.START )
+                    true
+                }
+                R.id.drawer_logout -> {
+                    AlertDialog.Builder(this)
+                        .setMessage("로그아웃 하시겠습니까?")
+                        .setPositiveButton("확인") { p0, p1 ->
+                            val intent = Intent( this, LoginActivity::class.java )
+                            startActivity( intent )
+                            G.userAccount!!.uid = ""
+                        }
+                        .setNegativeButton("취소", null)
+                        .show()
                     true
                 }
                 else -> false
