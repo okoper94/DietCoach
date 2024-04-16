@@ -12,6 +12,6 @@ class G {
 
 
 
-
+        val stepCount: Int = 0
     }
 }

@@ -12,11 +12,11 @@ class FoodDataAdapter( private var foodDataList : List<FoodData> ) :
     RecyclerView.Adapter<FoodDataAdapter.VH>() {
 
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewFoodName: TextView = itemView.findViewById(R.id.foodName)
-        val textViewCalories: TextView = itemView.findViewById(R.id.calories)
-        val textViewCarbs: TextView = itemView.findViewById(R.id.carbs)
-        val textViewProteins: TextView = itemView.findViewById(R.id.proteins)
-        val textViewFat: TextView = itemView.findViewById(R.id.fat)
+        val textViewFoodName : TextView = itemView.findViewById(R.id.foodName)
+        val textViewCalories : TextView = itemView.findViewById(R.id.calories)
+        val textViewCarbs : TextView = itemView.findViewById(R.id.carbs)
+        val textViewProteins : TextView = itemView.findViewById(R.id.proteins)
+        val textViewFat : TextView = itemView.findViewById(R.id.fat)
         val textViewFiber : TextView = itemView.findViewById(R.id.fiber)
         val textViewSodium : TextView = itemView.findViewById(R.id.sodium)
         val textViewCholesterol : TextView = itemView.findViewById(R.id.cholesterol)

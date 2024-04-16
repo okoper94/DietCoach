@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -22,6 +23,7 @@ import com.kys2024.dietcoach.fragments.DietBoardFragment
 import com.kys2024.dietcoach.fragments.DietCalendarFragment
 import com.kys2024.dietcoach.fragments.DietHomeFragment
 import com.kys2024.dietcoach.fragments.DietMyFragment
+import com.kys2024.dietcoach.fragments.ManboFragment
 import com.kys2024.dietcoach.network.FoodApiService
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper2
@@ -57,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_bnv_home ->supportFragmentManager.beginTransaction().replace(R.id.container_fragment,DietHomeFragment()).commit()
                 R.id.menu_bnv_board ->supportFragmentManager.beginTransaction().replace(R.id.container_fragment, DietBoardFragment()).commit()
                 R.id.menu_bnv_calendar ->supportFragmentManager.beginTransaction().replace(R.id.container_fragment,DietCalendarFragment()).commit()
-                R.id.menu_bnv_my ->supportFragmentManager.beginTransaction().replace(R.id.container_fragment,DietMyFragment()).commit()
+                R.id.menu_bnv_manbo ->supportFragmentManager.beginTransaction().replace(R.id.container_fragment,ManboFragment()).commit()
             }
             true
         }
@@ -82,6 +84,18 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent( this, MyInformationActivity::class.java )
                     startActivity( intent )
                     drawerLayout.closeDrawer( GravityCompat.START )
+                    true
+                }
+                R.id.drawer_logout -> {
+                    AlertDialog.Builder(this)
+                        .setMessage("로그아웃 하시겠습니까?")
+                        .setPositiveButton("확인") { p0, p1 ->
+                            val intent = Intent( this, LoginActivity::class.java )
+                            startActivity( intent )
+                            G.userAccount!!.uid = ""
+                        }
+                        .setNegativeButton("취소", null)
+                        .show()
                     true
                 }
                 else -> false
