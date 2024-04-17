@@ -14,8 +14,8 @@ import com.kys2024.dietcoach.data.BoardItem
 class BoardItemAdapter( val context : Context, val boardItems : List<BoardItem>) : RecyclerView.Adapter<BoardItemAdapter.VH>() {
 
     inner class VH( itemView : View ) : RecyclerView.ViewHolder( itemView ) {
-        val imageView : ImageView = itemView.findViewById( R.id.write_iv )
-        val editText : EditText = itemView.findViewById( R.id.write_msg_edit_text )
+        val imageView : ImageView = itemView.findViewById( R.id.iv_picture )
+        val editText : EditText = itemView.findViewById( R.id.tv_content )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {

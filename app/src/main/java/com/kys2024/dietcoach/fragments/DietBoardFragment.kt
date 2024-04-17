@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kys2024.dietcoach.activity.WriteBoardActivity
+import com.kys2024.dietcoach.adapter.BoardItemAdapter
+import com.kys2024.dietcoach.data.BoardItem
 import com.kys2024.dietcoach.databinding.FragmentDietBoardBinding
 
 class DietBoardFragment :Fragment(){
@@ -32,6 +35,19 @@ class DietBoardFragment :Fragment(){
 
         }
 
+
+
+
+        val boardItems = loadBoardItems()
+        binding.recyclerViewBoard.adapter = BoardItemAdapter( requireContext(), boardItems )
+
+        binding.recyclerViewBoard.layoutManager = LinearLayoutManager( context )
+    }
+
+    private fun loadBoardItems() : List<BoardItem> {
+        return listOf(
+//            BoardItem( "이미지uri..", "메세지.." )
+        )
 
     }
 }
