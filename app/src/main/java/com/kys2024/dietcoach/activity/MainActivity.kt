@@ -1,5 +1,6 @@
 package com.kys2024.dietcoach.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -47,6 +48,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        //툴바 타이틀제거
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.toolbar.setTitle("")
+        binding.toolbar.setSubtitle("")
+
+
         setContentView(binding.root)
 
 
@@ -63,6 +73,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+
 
 
 
@@ -107,6 +119,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+
         val headerView = navigationView.getHeaderView(0)
 
         val drawerImage = headerView.findViewById<ImageView>(R.id.drawer_image)
@@ -134,6 +148,7 @@ class MainActivity : AppCompatActivity() {
         data["userid"] = G.userAccount!!.uid.toString()
         retrofitService.loadDataFromServer(data).enqueue(object : Callback<LoadUserData>{
 
+            @SuppressLint("SuspiciousIndentation")
             override fun onResponse(p0: Call<LoadUserData>, p1: Response<LoadUserData>) {
                 val s = p1.body()
                 if(s!=null)

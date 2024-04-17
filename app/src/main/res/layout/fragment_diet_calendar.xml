@@ -7,9 +7,10 @@
     android:background="@color/white">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:mcv_selectionColor="@color/green"/>
+        app:mcv_selectionColor="@color/LightGray"/>
 
     <TextView
         android:id="@+id/tv"

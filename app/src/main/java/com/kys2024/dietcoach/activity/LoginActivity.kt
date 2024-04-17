@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-        binding.tvDool.setOnClickListener { clickDool()}
+
 
 
         binding.layoutEmailLogin.setOnClickListener{ clickEmailLogin()}
@@ -57,10 +57,6 @@ class LoginActivity : AppCompatActivity() {
     private fun clickSignup(){
         startActivity(Intent(this,LoginMemberShipActivity::class.java))
 
-
-    }
-    private fun clickDool(){
-        startActivity(Intent(this,MainActivity::class.java))
 
     }
 
