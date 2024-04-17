@@ -80,6 +80,11 @@ class MainActivity : AppCompatActivity() {
         }
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when( menuItem.itemId ) {
+                R.id.my_page ->{
+                    val intent = Intent(this,MyPageActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.bmi_go -> {
                     val intent = Intent( this, MyInformationActivity::class.java )
                     startActivity( intent )
