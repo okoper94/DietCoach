@@ -89,6 +89,6 @@
         android:minLines="1"
         android:maxLines="10"
         android:padding="8dp"
-        android:background="@drawable/frame_write_board"/>
+        android:background="@drawable/frame_write_board" />
 
 </RelativeLayout>

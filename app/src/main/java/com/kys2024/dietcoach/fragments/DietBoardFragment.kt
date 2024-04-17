@@ -30,7 +30,13 @@ class DietBoardFragment :Fragment(){
 
         binding.btn.setOnClickListener {
             startActivity( Intent( requireActivity(), WriteBoardActivity::class.java ) )
+
+
+
         }
+
+
+
 
         val boardItems = loadBoardItems()
         binding.recyclerViewBoard.adapter = BoardItemAdapter( requireContext(), boardItems )
@@ -42,5 +48,6 @@ class DietBoardFragment :Fragment(){
         return listOf(
 //            BoardItem( "이미지uri..", "메세지.." )
         )
+
     }
 }

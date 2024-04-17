@@ -7,6 +7,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,13 +18,17 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.databinding.FragmentManboBinding
+
 
 class ManboFragment : Fragment(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
     private var stepCountSensor: Sensor? = null
     private lateinit var binding: FragmentManboBinding
+    private var lastCheckedDate: Int = 0
 
     companion object {
         private const val PERMISSION_ACTIVITY_RECOGNITION_REQUEST_CODE = 100
@@ -35,6 +40,7 @@ class ManboFragment : Fragment(), SensorEventListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentManboBinding.inflate(inflater, container, false)
+        Glide.with(binding.root).load(R.drawable.move).into(binding.ivMove)
         return binding.root
     }
 
@@ -114,10 +120,29 @@ class ManboFragment : Fragment(), SensorEventListener {
         // 만보 센서 데이터 처리
         event?.let {
             if (it.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
-                val stepCount = it.values[0].toInt()
+                var stepCount = it.values[0].toInt()
+                if(isDateChanged()){
+                    stepCount = 0
+                }
+
+
+
                 updateStepCount(stepCount)
             }
         }
+    }
+
+
+    private fun getCurrentDate(): Int{
+        val calendar= Calendar.getInstance()
+        return calendar.get(Calendar.YEAR)*10000 +
+                (calendar.get(Calendar.MONTH+1))*100 +
+                calendar.get(Calendar.DAY_OF_MONTH)
+    }
+
+    private fun isDateChanged(): Boolean{
+        val currentDate = getCurrentDate()
+        return currentDate != lastCheckedDate
     }
 
     private fun updateStepCount(stepCount: Int) {
