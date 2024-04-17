@@ -59,7 +59,7 @@ class WriteBoardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView( binding.root )
 
-        val sharedPreferences = getSharedPreferences("ID", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("${G.userAccount?.uid}", Context.MODE_PRIVATE)
         userId = sharedPreferences.getString("userid", null)
         Log.d("id보기", "id: ${userId}")
 

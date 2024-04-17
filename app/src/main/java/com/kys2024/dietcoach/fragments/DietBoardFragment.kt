@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.kys2024.dietcoach.activity.MainActivity
 import com.kys2024.dietcoach.activity.WriteBoardActivity
+import com.kys2024.dietcoach.adapter.BoardItemAdapter
 import com.kys2024.dietcoach.databinding.FragmentDietBoardBinding
 
 class DietBoardFragment :Fragment(){
@@ -24,6 +26,10 @@ class DietBoardFragment :Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val ma:MainActivity = activity as MainActivity
+        ma.loadBoardData ?: return
+        binding.recyclerViewBoard.adapter = BoardItemAdapter(requireContext(), ma.loadBoardData!!)
 
         binding.btn.setOnClickListener {
             startActivity( Intent( requireActivity(), WriteBoardActivity::class.java ) )

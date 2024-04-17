@@ -31,6 +31,7 @@ class LoginMemberShipActivity : AppCompatActivity() {
         val email = binding.inputLayoutEmail.editText!!.text.toString()
         val password = binding.inputLayoutPassword.editText!!.text.toString()
         val passwordConform = binding.inputLayoutPasswordCheck.editText!!.text.toString()
+        val nickname = binding.inputLayoutNickname.editText!!.text.toString()
 
 
 
@@ -49,7 +50,7 @@ class LoginMemberShipActivity : AppCompatActivity() {
             return
         }
 
-        G.userAccount = UserAccount(email, password)
+        G.userAccount = UserAccount(email, password, nickname)
         serverToLoginUpload()
 
     }
