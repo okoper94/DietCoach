@@ -53,10 +53,21 @@ class DietHomeFragment:Fragment() {
             PieEntry(15f, "지방")
         )
 
-        if (binding.bkcal.text == ""){
-            binding.plus.isInvisible
-            binding.refresh.isVisible
+        if (binding.bkcal.text.toString() != "0 kcal") {
+            binding.breakPlus.isInvisible = true
+            binding.breakRefresh.isVisible = true
         }
+
+        if (binding.lunchKcal.text.toString() != "0 kcal") {
+            binding.lunchPlus.isInvisible = true
+            binding.lunchRefresh.isVisible = true
+        }
+
+        if (binding.dinnerKcal.text.toString() != "0 kcal") {
+            binding.dinnerPlus.isInvisible = true
+            binding.dinnerRefresh.isVisible = true
+        }
+
 
         val dataSet = PieDataSet(dataList, "")
         dataSet.colors = listOf(

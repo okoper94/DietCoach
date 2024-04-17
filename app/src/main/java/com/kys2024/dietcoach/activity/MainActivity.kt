@@ -48,6 +48,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        //툴바 타이틀제거
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.toolbar.setTitle("")
+        binding.toolbar.setSubtitle("")
+
+
         setContentView(binding.root)
 
 
@@ -105,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        navigationView
+
 
         val headerView = navigationView.getHeaderView(0)
 
