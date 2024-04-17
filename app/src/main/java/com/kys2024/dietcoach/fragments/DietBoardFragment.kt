@@ -27,6 +27,11 @@ class DietBoardFragment :Fragment(){
 
         binding.btn.setOnClickListener {
             startActivity( Intent( requireActivity(), WriteBoardActivity::class.java ) )
+
+
+
         }
+
+
     }
 }
