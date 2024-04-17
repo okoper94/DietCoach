@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    >
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main"
@@ -28,16 +29,23 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
                 android:backgroundTint="@color/white"
-                app:menu="@menu/toolbar_menu"
                 app:navigationIcon="@drawable/ic_action_my">
+                app:menu="@menu/toolbar_menu"
+                app:navigationIcon="@drawable/ic_action_login2">
+
 
                 <TextView
+                    android:id="@+id/toolbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Diat Coach"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    android:includeFontPadding="false"
                     android:layout_gravity="center"
-                    android:text="Diet"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    />
+
+
 
             </androidx.appcompat.widget.Toolbar>
 

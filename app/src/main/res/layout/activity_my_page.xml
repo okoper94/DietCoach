@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MyPageActivity">
+
+    <ImageView
+        android:id="@+id/iv_profile"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/ic_action_my"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/iv_editing"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/baseline_camera_alt_24"
+        android:layout_alignBottom="@id/iv_profile"
+        android:layout_alignRight="@id/iv_profile"/>
+
+    <EditText
+        android:id="@+id/et_nickname"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:hint="다이어트좋아님"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:inputType="text"
+        android:background="@color/whitegreen"
+        android:layout_below="@id/iv_profile"/>
+
+
+    <ImageView
+        android:id="@+id/iv_pencil_nickname"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignBottom="@id/et_nickname"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="90dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="changeTextViewText"
+        android:background="@drawable/baseline_create_24" />
+
+
+
+
+    <TextView
+        android:id="@+id/tv_goals_kcal"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="목표 칼로리"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:layout_below="@id/et_nickname"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/tv_kcal"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="@color/whitegreen"
+        android:text="2400kcal"
+        android:gravity="center"
+        android:layout_below="@id/tv_goals_kcal"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/iv_pencil_kcal"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignBottom="@id/tv_kcal"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="90dp"
+        android:background="@drawable/baseline_create_24" />
+
+    <TextView
+        android:id="@+id/tv_bmi"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="BMI 측정하러가기"
+        android:layout_marginTop="150dp"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:layout_below="@id/tv_kcal"
+        android:layout_centerHorizontal="true" />
+
+
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="@color/whitegreen"
+        android:text="저장하기"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/tv_bmi"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

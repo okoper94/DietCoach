@@ -1,6 +1,8 @@
 package com.kys2024.dietcoach.activity
 
+
 import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -50,6 +52,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        //툴바 타이틀제거
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.toolbar.setTitle("")
+        binding.toolbar.setSubtitle("")
+
+
         setContentView(binding.root)
         Log.d("id보기", "id: ${G.userAccount?.uid}")
         val sharedPreferences = getSharedPreferences("ID", Context.MODE_PRIVATE)
@@ -76,6 +87,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
         drawerLayout = binding.drawerLayout
         toolbar = binding.toolbar
         navigationView = binding.navigationView
@@ -90,6 +103,11 @@ class MainActivity : AppCompatActivity() {
         }
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when( menuItem.itemId ) {
+                R.id.my_page ->{
+                    val intent = Intent(this,MyPageActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.bmi_go -> {
                     val intent = Intent( this, MyInformationActivity::class.java )
                     startActivity( intent )
@@ -111,6 +129,8 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+
 
         val headerView = navigationView.getHeaderView(0)
 
@@ -140,6 +160,7 @@ class MainActivity : AppCompatActivity() {
         data["userid"] = G.userAccount!!.uid.toString()
         retrofitService.loadDataFromServer(data).enqueue(object : Callback<LoadUserData>{
 
+            @SuppressLint("SuspiciousIndentation")
             override fun onResponse(p0: Call<LoadUserData>, p1: Response<LoadUserData>) {
                 val s = p1.body()
                 if(s!=null)
