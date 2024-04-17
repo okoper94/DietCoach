@@ -150,7 +150,7 @@ class DietMyFragment:Fragment() {
             MultipartBody.Part.createFormData("img1",file.name, requestBody)//식별자, 파일명, 요청Body [택배 스티로폼 상자]
 
 
-        retrofitService.uploadImage(dataPart, filepart).enqueue(object : Callback<String> {
+        retrofitService.updateprofile(dataPart, filepart).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 val uri = response.body()
                 G.userAccount = UserAccount(uri=uri)
