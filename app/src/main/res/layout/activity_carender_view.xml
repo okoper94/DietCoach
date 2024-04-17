@@ -5,8 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CarenderViewActivity"
-    android:background="@color/white">
+    tools:context=".activity.CalendarViewActivity"
+    android:background="@color/white"
+    android:padding="16dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

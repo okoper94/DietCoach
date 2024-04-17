@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="16dp">
 
 
 
@@ -13,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-26dp">
+        android:background="@color/white">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -22,7 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/baseline_arrow_back_24"
             app:title="BMI 분석"
-            />
+            android:background="@color/white"/>
 
 
 
@@ -31,10 +31,11 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="260dp"
             android:layout_below="@id/toolbar"
             android:padding="16dp"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="20dp"
+            android:backgroundTint="@color/white">
 
             <LinearLayout
                 android:id="@+id/liner1"
@@ -44,7 +45,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
+                    android:layout_height="64dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -83,7 +84,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
+                    android:layout_height="64dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -133,7 +134,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
+                    android:layout_height="64dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -168,7 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginLeft="28dp"
                         android:text="cm"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -184,7 +185,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
+                    android:layout_height="64dp"
                     android:layout_gravity="center">
 
                     <TextView
@@ -202,7 +203,7 @@
                         android:layout_width="200dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="24dp"
                         android:layout_marginBottom="5dp"
                         android:hint="100kg"
                         app:boxStrokeColor="@color/green"
@@ -237,7 +238,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cardview"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+
             android:layout_marginRight="8dp"
             android:backgroundTint="@color/green"
             android:text="BMI 분석 하기"
@@ -257,7 +258,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:backgroundTint="@color/white">
 
                 <TextView
                     android:id="@+id/bmi"
