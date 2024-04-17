@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "329403417400",
+    "project_id": "teamyoungdietapp",
+    "storage_bucket": "teamyoungdietapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329403417400:android:4c891dcbeeaa20c366f7cd",
+        "android_client_info": {
+          "package_name": "com.kys2024.dietcoach"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALLBh2brheEQfKWjuG9nRtqX6GCt2efDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329403417400:android:05fda35e6aafd7d266f7cd",
+        "android_client_info": {
+          "package_name": "com.psg2024.dietapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALLBh2brheEQfKWjuG9nRtqX6GCt2efDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

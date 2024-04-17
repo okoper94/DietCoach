@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -35,6 +36,7 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        mlModelBinding = true
     }
 }
 
@@ -45,9 +47,27 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.retrofit)
+    implementation(libs.converter.scalars)
+    implementation(libs.converter.gson)
+    implementation(libs.oauth)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.glide)
+    implementation(libs.circleimageview)
+    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.metadata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.material.calendarview2)
+    implementation(libs.mpandroidchart)
+    implementation (libs.v2.user)
+    implementation(libs.play.services.auth)
+    implementation(libs.circleimageview)
+
+
+
+
 
 
 
