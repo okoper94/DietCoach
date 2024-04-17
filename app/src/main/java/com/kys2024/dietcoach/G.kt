@@ -8,10 +8,5 @@ class G {
     companion object {
         var userAccount: UserAccount? = null
 
-
-
-
-
-        val stepCount: Int = 0
     }
 }

@@ -1,5 +1,6 @@
 package com.psg2024.ex68retrofitmarketapp
 
+import com.kys2024.dietcoach.data.LoadBoardData
 import com.kys2024.dietcoach.data.LoadUserData
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -24,9 +25,16 @@ interface RetrofitService {
                     @Part filePart: MultipartBody.Part?): Call<String>
     @Multipart
     @POST("/DietCoach/boardupload.php")
+    fun updateprofile(@PartMap dataPart:Map<String, String>,
+                    @Part filePart: MultipartBody.Part?): Call<String>
+    @Multipart
+    @POST("/DietCoach/board.php")
     fun uploadboard(@PartMap dataPart:Map<String, String>,
                     @Part filePart: MultipartBody.Part?): Call<String>
 
     @POST("/DietCoach/loadDB.php")
     fun loadDataFromServer(@Body data: HashMap<String, String>) :Call<LoadUserData>
+
+    @POST("/DietCoach/boardDBload.php")
+    fun loadDataFromServerboard() :Call<LoadBoardData>
 }

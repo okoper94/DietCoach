@@ -1,7 +1,9 @@
 package com.kys2024.dietcoach.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +18,7 @@ import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.adapter.FoodDataAdapter
 import com.kys2024.dietcoach.data.FoodData
 import com.kys2024.dietcoach.data.FoodResponse
+import com.kys2024.dietcoach.data.LoadBoardData
 import com.kys2024.dietcoach.data.LoadUserData
 import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.ActivityMainBinding
@@ -48,6 +51,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        Log.d("id보기", "id: ${G.userAccount?.uid}")
+        val sharedPreferences = getSharedPreferences("ID", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("userid",G.userAccount?.uid.toString())
+        editor.apply()
+
+        loadDataFromServerboard()
 
 
 
@@ -125,6 +135,7 @@ class MainActivity : AppCompatActivity() {
         val retrofit = RetrofitHelper.getRetrofitInstance()
         val retrofitService = retrofit.create(RetrofitService::class.java)
 
+
         val data :HashMap<String,String> = hashMapOf()
         data["userid"] = G.userAccount!!.uid.toString()
         retrofitService.loadDataFromServer(data).enqueue(object : Callback<LoadUserData>{
@@ -140,7 +151,21 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+
     }
+    private fun loadDB2() {
+        val retrofit = RetrofitHelper.getRetrofitInstance()
+        val retrofitService = retrofit.create(RetrofitService::class.java)
+        retrofitService.loadDataFromServerboard().enqueue(object : Callback<LoadBoardData>{
+            override fun onResponse(p0: Call<LoadBoardData>, p1: Response<LoadBoardData>) {
+
+            }
+
+            override fun onFailure(p0: Call<LoadBoardData>, p1: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
 
 
 //    private fun fetchFoodData(query: String) {
