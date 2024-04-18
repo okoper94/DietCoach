@@ -36,10 +36,8 @@ class DietCalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         calendarView = binding.calendarView
-
         calendarView.setSelectedDate(CalendarDay.today())
         calendarView.addDecorator(TodayDecorator())
-
         calendarView.setOnDateChangedListener(object : OnDateSelectedListener {
             override fun onDateSelected(
                 widget: MaterialCalendarView,

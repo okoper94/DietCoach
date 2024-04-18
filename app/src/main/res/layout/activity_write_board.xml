@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     tools:context=".activity.WriteBoardActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:backgroundTint="@color/whitewhitegreen2">
 
     <RelativeLayout
         android:id="@+id/write_line1"
@@ -53,7 +54,8 @@
             android:id="@+id/write_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/main_box"/>
 
         <LinearLayout
             android:id="@+id/write_select_image_layout"

@@ -65,7 +65,9 @@ dependencies {
     implementation (libs.v2.user)
     implementation(libs.play.services.auth)
     implementation(libs.circleimageview)
-
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.release)
 
 
 
