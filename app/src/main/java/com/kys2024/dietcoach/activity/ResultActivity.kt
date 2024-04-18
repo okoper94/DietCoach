@@ -1,9 +1,12 @@
 package com.kys2024.dietcoach.activity
 
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.adapter.FoodDataAdapter
 import com.kys2024.dietcoach.data.FoodData
 import com.kys2024.dietcoach.data.FoodName
@@ -28,6 +31,20 @@ class ResultActivity : AppCompatActivity() {
     private lateinit var foodDataAdapter: FoodDataAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        var resultImageView = binding.resultIv // ImageView 초기화
+
+        // 전달받은 이미지 URI 가져오기
+        val imageUriString = intent.getStringExtra("imageUri")
+        val imageUri = Uri.parse(imageUriString)
+
+        // Glide를 사용하여 이미지 표시
+        Glide.with(this)
+            .load(imageUri)
+            .into(resultImageView)
+
+
         setContentView(binding.root)
 
         imageAnalysis()

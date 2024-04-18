@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -28,13 +29,14 @@ import com.github.mikephil.charting.data.PieEntry
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.kys2024.dietcoach.R
+import com.kys2024.dietcoach.activity.ResultActivity
 import com.kys2024.dietcoach.databinding.FragmentDietHomeBinding
 
 class DietHomeFragment : Fragment() {
 
 
     private val binding by lazy { FragmentDietHomeBinding.inflate(layoutInflater) }
-
+    private var currentImageUri: Uri? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -128,18 +130,23 @@ class DietHomeFragment : Fragment() {
 
     }
 
-    val resultLauncher: ActivityResultLauncher<Intent> =
+    private val resultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val intentData = result.data
                 intentData?.let { data ->
                     val imageUri = data.data
                     imageUri?.let { uri ->
-                        Glide.with(requireContext()).load(uri)
+
                     }
                 }
             }
         }
+
+
+
+
+
 
     private fun clickLunch() {
         val items = arrayOf<CharSequence>("카메라로 촬영", "앨범에서 선택")
