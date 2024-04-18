@@ -40,7 +40,7 @@ class ManboFragment : Fragment(), SensorEventListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentManboBinding.inflate(inflater, container, false)
-        Glide.with(binding.root).load(R.drawable.move).into(binding.ivMove)
+        //Glide.with(binding.root).load(R.drawable.move).into(binding.ivMove)
         return binding.root
     }
 

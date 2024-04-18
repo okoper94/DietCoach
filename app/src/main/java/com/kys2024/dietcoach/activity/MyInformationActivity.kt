@@ -26,13 +26,13 @@ class MyInformationActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.bmiBtn.setOnClickListener { clickBtn() }
         binding.toolbar.setNavigationOnClickListener { finish() }
-        binding.saveBtn.setOnClickListener { clickSave() }
+//        binding.saveBtn.setOnClickListener { clickSave() }
 
 
     }
-    private fun clickSave(){
-        finish()
-    }
+//    private fun clickSave(){
+//        finish()
+//    }
 
     private fun clickBtn(){
 

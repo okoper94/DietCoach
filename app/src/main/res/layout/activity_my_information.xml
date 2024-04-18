@@ -242,8 +242,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cardview"
             android:layout_marginLeft="8dp"
-
             android:layout_marginRight="8dp"
+            android:layout_marginTop="12dp"
             android:backgroundTint="@color/green"
             android:text="BMI 분석 하기"
             android:textSize="20sp"
@@ -254,7 +254,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_below="@id/bmi_btn"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="40dp"
             android:padding="16dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="4dp">
@@ -301,18 +301,18 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/save_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/cardview_bmi"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:backgroundTint="@color/green"
-            android:text="저장하기"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
+<!--        <Button-->
+<!--            android:id="@+id/save_btn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/cardview_bmi"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginRight="8dp"-->
+<!--            android:backgroundTint="@color/green"-->
+<!--            android:text="저장하기"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textColor="@color/white"/>-->
 
 
     </RelativeLayout>

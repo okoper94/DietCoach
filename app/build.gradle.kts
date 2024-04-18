@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.circleimageview)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.activity.ktx)
+    implementation(libs.release)
 
 
 

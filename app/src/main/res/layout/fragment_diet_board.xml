@@ -31,7 +31,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_board"
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
@@ -48,7 +48,7 @@
         <Button
             android:id="@+id/btn"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="52dp"
             android:text="글쓰기"
             android:backgroundTint="@color/green"
             android:layout_marginBottom="64dp"
