@@ -5,8 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".activity.MyPageActivity">
+    tools:context=".activity.MyPageActivity"
+    android:background="@color/whitewhitegreen2">
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -108,8 +109,10 @@
         android:textStyle="bold"
         android:textSize="17sp"
         android:gravity="center"
-        android:layout_below="@id/et_kcal"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/tv_kcal"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
+
 
 
 
