@@ -27,11 +27,15 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@id/toolbar_back"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/result_recycler"
+        <TextView
+            android:id="@+id/result_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/result_iv"/>
+            android:layout_below="@id/result_iv"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"/>
+
 
 
 

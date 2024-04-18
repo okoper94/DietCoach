@@ -28,17 +28,12 @@ import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
-
 import com.kys2024.dietcoach.G
-
-import com.google.android.gms.common.api.Response
-
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.data.BoardItem
 import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.ActivityWriteBoardBinding
 import com.kys2024.dietcoach.fragments.DietMyFragment
-
 import com.psg2024.ex68retrofitmarketapp.RetrofitService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -49,15 +44,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
-
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -76,7 +62,7 @@ class WriteBoardActivity : AppCompatActivity() {
         userId = G.userAccount?.uid
         Log.d("id보기", "id: ${userId}")
 
-         binding.writeSelectImageLayout.setOnClickListener {
+        binding.writeSelectImageLayout.setOnClickListener {
             openImageSelector()
         }
 
@@ -102,44 +88,6 @@ class WriteBoardActivity : AppCompatActivity() {
             Toast.makeText( this, "이미지가 없습니다", Toast.LENGTH_SHORT).show()
         }
     }
-
-//    private fun saveData() {
-//        val message = binding.writeMsgEditText.text.toString()
-//        val boardItem = BoardItem(imageUri!!, message)
-//
-//        // Retrofit 초기화
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl("https://example.com/") // 서버의 기본 URL을 입력
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//
-//        val apiService = retrofit.create(ApiService::class.java)
-//
-//        // 이미지 파일 생성하고 전송하고
-//        val file = File(imageUri!!.path!!)
-//        val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
-//        val imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
-//
-//        // 메시지 전송하고
-//        val messagePart = RequestBody.create(MediaType.parse("text/plain"), message)
-//
-//        // 서버에 이미지와 메시지 전송
-//        apiService.uploadImage(imagePart, messagePart).enqueue(object : Callback<ResponseBody> {
-//            fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-//                if (response.isSuccessful) {
-//                    Toast.makeText(this@WriteBoardActivity, "데이터 전송 성공", Toast.LENGTH_SHORT).show()
-//                    finish() // 액티비티 종료
-//                } else {
-//                    Toast.makeText(this@WriteBoardActivity, "데이터 전송 실패", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                Toast.makeText(this@WriteBoardActivity, "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
-
 
     private fun openImageSelector() {
         val intent = if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ) {
