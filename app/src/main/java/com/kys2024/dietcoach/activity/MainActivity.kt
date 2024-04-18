@@ -18,9 +18,9 @@ import com.google.android.material.navigation.NavigationView
 import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.adapter.FoodDataAdapter
+import com.kys2024.dietcoach.data.BoardData
 import com.kys2024.dietcoach.data.FoodData
 import com.kys2024.dietcoach.data.FoodResponse
-import com.kys2024.dietcoach.data.LoadBoardData
 import com.kys2024.dietcoach.data.LoadUserData
 import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.ActivityMainBinding
@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var foodDataList: List<FoodData>
     private lateinit var foodDataAdapter: FoodDataAdapter
+    var loadBoardData: List<BoardData>? = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,16 +61,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.setTitle("")
         binding.toolbar.setSubtitle("")
 
-
-        setContentView(binding.root)
-        Log.d("id보기", "id: ${G.userAccount?.uid}")
-        val sharedPreferences = getSharedPreferences("ID", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("userid", G.userAccount?.uid.toString())
-        editor.apply()
-
-        //loadDataFromServerboard()
-
+            setContentView(binding.root)
 
         supportFragmentManager.beginTransaction().add(R.id.container_fragment, DietHomeFragment())
             .commit()
@@ -90,9 +82,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-
-
 
 
         drawerLayout = binding.drawerLayout
@@ -152,11 +141,16 @@ class MainActivity : AppCompatActivity() {
         drawerName.setOnClickListener {
 
         }
+
     } // onCreate..
 
     override fun onResume() {
         super.onResume()
+        loadDB2()
+
         loadDB()
+
+
     }
 
     private fun loadDB() {
@@ -165,14 +159,15 @@ class MainActivity : AppCompatActivity() {
 
 
         val data: HashMap<String, String> = hashMapOf()
-        data["userid"] = G.userAccount!!.uid.toString()
+        data["userid"] = G.userAccount?.uid.toString()
         retrofitService.loadDataFromServer(data).enqueue(object : Callback<LoadUserData> {
 
             @SuppressLint("SuspiciousIndentation")
             override fun onResponse(p0: Call<LoadUserData>, p1: Response<LoadUserData>) {
                 val s = p1.body()
                 if (s != null)
-                    G.userAccount = UserAccount(uri = s.profileimg, nickname = s.nickname)
+                    G.userAccount?.uri= s.profileimg
+
             }
 
             override fun onFailure(p0: Call<LoadUserData>, p1: Throwable) {
@@ -187,13 +182,16 @@ class MainActivity : AppCompatActivity() {
     private fun loadDB2() {
         val retrofit = RetrofitHelper.getRetrofitInstance()
         val retrofitService = retrofit.create(RetrofitService::class.java)
-        retrofitService.loadDataFromServerboard().enqueue(object : Callback<LoadBoardData> {
-            override fun onResponse(p0: Call<LoadBoardData>, p1: Response<LoadBoardData>) {
+        retrofitService.loadDataFromServerboard().enqueue(object : Callback<List<BoardData>> {
+            override fun onResponse(p0: Call<List<BoardData>>, p1: Response<List<BoardData>>) {
+                if(p1.isSuccessful){
+                loadBoardData = p1.body()
 
+                }
             }
 
-            override fun onFailure(p0: Call<LoadBoardData>, p1: Throwable) {
-                TODO("Not yet implemented")
+            override fun onFailure(p0: Call<List<BoardData>>, p1: Throwable) {
+                Log.d("실패", "${p1.message}")
             }
         })
 
