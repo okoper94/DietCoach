@@ -1,15 +1,20 @@
 package com.kys2024.dietcoach
 
 
-import com.kys2024.dietcoach.data.BoardData
+import android.app.Application
 import com.kys2024.dietcoach.data.UserAccount
 
 
-class G {
+class G : Application() {
     companion object {
         var userAccount: UserAccount? = null
+    }
 
-        var DB: MutableList<BoardData> = mutableListOf()
+    fun setUserAccount(account: UserAccount) {
+        userAccount = account
+    }
 
+    fun getUserAccount(): UserAccount? {
+        return userAccount
     }
 }

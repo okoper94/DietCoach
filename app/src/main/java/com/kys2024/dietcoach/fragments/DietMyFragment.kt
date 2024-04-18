@@ -153,7 +153,7 @@ class DietMyFragment:Fragment() {
         retrofitService.updateprofile(dataPart, filepart).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 val uri = response.body()
-                G.userAccount = UserAccount(uri=uri)
+                G.userAccount?.uri = uri
                 Toast.makeText(requireContext(), "${G.userAccount!!.uri}", Toast.LENGTH_SHORT).show()
 
 

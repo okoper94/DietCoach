@@ -61,17 +61,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.setTitle("")
         binding.toolbar.setSubtitle("")
 
-
-        setContentView(binding.root)
-        Log.d("id보기", "id: ${G.userAccount?.uid}")
-
-        val sharedPreferences = getSharedPreferences("${G.userAccount?.uid}", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("userid", G.userAccount?.uid.toString())
-        editor.apply()
-
-        //loadDataFromServerboard()
-
+            setContentView(binding.root)
 
         supportFragmentManager.beginTransaction().add(R.id.container_fragment, DietHomeFragment())
             .commit()
@@ -92,9 +82,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-
-
 
 
         drawerLayout = binding.drawerLayout
@@ -154,13 +141,14 @@ class MainActivity : AppCompatActivity() {
         drawerName.setOnClickListener {
 
         }
+
     } // onCreate..
 
     override fun onResume() {
         super.onResume()
-        loadDB()
-
         loadDB2()
+
+        loadDB()
 
 
     }
@@ -171,14 +159,15 @@ class MainActivity : AppCompatActivity() {
 
 
         val data: HashMap<String, String> = hashMapOf()
-        data["userid"] = G.userAccount!!.uid.toString()
+        data["userid"] = G.userAccount?.uid.toString()
         retrofitService.loadDataFromServer(data).enqueue(object : Callback<LoadUserData> {
 
             @SuppressLint("SuspiciousIndentation")
             override fun onResponse(p0: Call<LoadUserData>, p1: Response<LoadUserData>) {
                 val s = p1.body()
                 if (s != null)
-                    G.userAccount = UserAccount(uri = s.profileimg, nickname = s.nickname)
+                    G.userAccount?.uri= s.profileimg
+
             }
 
             override fun onFailure(p0: Call<LoadUserData>, p1: Throwable) {
@@ -197,6 +186,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(p0: Call<List<BoardData>>, p1: Response<List<BoardData>>) {
                 if(p1.isSuccessful){
                 loadBoardData = p1.body()
+
                 }
             }
 

@@ -50,7 +50,7 @@ class LoginMemberShipActivity : AppCompatActivity() {
             return
         }
 
-        G.userAccount = UserAccount(email, password, nickname)
+        G.userAccount = UserAccount(email,nickname,null,password,null)
         serverToLoginUpload()
 
     }

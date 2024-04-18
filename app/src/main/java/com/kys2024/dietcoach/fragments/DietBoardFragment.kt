@@ -31,12 +31,21 @@ class DietBoardFragment :Fragment(){
         ma.loadBoardData ?: return
         binding.recyclerViewBoard.adapter = BoardItemAdapter(requireContext(), ma.loadBoardData!!)
 
+
         binding.btn.setOnClickListener {
             startActivity( Intent( requireActivity(), WriteBoardActivity::class.java ) )
 
 
 
         }
+
+
+
+
+    }
+    override fun onResume() {
+        super.onResume()
+        binding.recyclerViewBoard.adapter?.notifyDataSetChanged()
 
 
     }
