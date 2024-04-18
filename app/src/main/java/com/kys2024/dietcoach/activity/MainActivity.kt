@@ -17,9 +17,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
-import com.kys2024.dietcoach.adapter.FoodDataAdapter
-import com.kys2024.dietcoach.data.FoodData
-import com.kys2024.dietcoach.data.FoodResponse
 import com.kys2024.dietcoach.data.LoadBoardData
 import com.kys2024.dietcoach.data.LoadUserData
 import com.kys2024.dietcoach.data.UserAccount
@@ -27,7 +24,6 @@ import com.kys2024.dietcoach.databinding.ActivityMainBinding
 import com.kys2024.dietcoach.fragments.DietBoardFragment
 import com.kys2024.dietcoach.fragments.DietCalendarFragment
 import com.kys2024.dietcoach.fragments.DietHomeFragment
-import com.kys2024.dietcoach.fragments.DietMyFragment
 import com.kys2024.dietcoach.fragments.ManboFragment
 import com.kys2024.dietcoach.network.FoodApiService
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
@@ -47,8 +43,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: Toolbar
     private lateinit var navigationView: NavigationView
-    private lateinit var foodDataList: List<FoodData>
-    private lateinit var foodDataAdapter: FoodDataAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -197,30 +191,5 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
-//    private fun fetchFoodData(query: String) {
-//        val retrofit = RetrofitHelper2.getRetrofitInstance("https://api.odcloud.kr/api/")
-//        val foodApiService = retrofit.create(FoodApiService::class.java)
-//        val call = foodApiService.getFoods()
-//
-//        call.enqueue(object : Callback<FoodResponse> {
-//            override fun onResponse(call: Call<FoodResponse>, response: Response<FoodResponse>) {
-//                if (response.isSuccessful) {
-//                    val foodResponse = response.body()
-//                    if (foodResponse != null) {
-//                        foodDataList = foodResponse.data
-//                        val filteredList = foodDataList.filter { it.foodName.contains(query, ignoreCase = true) }
-//                        foodDataAdapter.updateData(filteredList)
-//                    }
-//                } else {
-//                    Toast.makeText(this@MainActivity, "Failed to fetch data", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<FoodResponse>, t: Throwable) {
-//                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
     }
 }

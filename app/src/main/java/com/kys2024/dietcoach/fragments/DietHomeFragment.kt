@@ -30,7 +30,7 @@ import com.google.gson.reflect.TypeToken
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.databinding.FragmentDietHomeBinding
 
-class DietHomeFragment:Fragment() {
+class DietHomeFragment : Fragment() {
 
 
     private val binding by lazy { FragmentDietHomeBinding.inflate(layoutInflater) }
@@ -98,8 +98,9 @@ class DietHomeFragment:Fragment() {
             binding.relativeLayoutDinner.setOnClickListener { clickDinner() }
         }
     }
-    private fun clickMorning(){ //아침메뉴 선택시 다이얼로그로 카메라 촬영 앨범 선택 사항
-        val items = arrayOf<CharSequence> ("카메라로 촬영","앨범에서 선택")
+
+    private fun clickMorning() { //아침메뉴 선택시 다이얼로그로 카메라 촬영 앨범 선택 사항
+        val items = arrayOf<CharSequence>("카메라로 촬영", "앨범에서 선택")
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("사진선택")
         builder.setItems(items) { dialog, which ->
@@ -112,29 +113,36 @@ class DietHomeFragment:Fragment() {
 
         builder.show()
     }
-    private fun takePicture(){  //카메라앱
+
+    private fun takePicture() {  //카메라앱
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         resultLauncher.launch(intent)
     }
-    private fun chooseFromGallery(){  //사진앨범
-        val intent = if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.TIRAMISU) Intent(MediaStore.ACTION_PICK_IMAGES)else Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*")
+
+    private fun chooseFromGallery() {  //사진앨범
+        val intent =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) Intent(MediaStore.ACTION_PICK_IMAGES) else Intent(
+                Intent.ACTION_OPEN_DOCUMENT
+            ).setType("image/*")
         resultLauncher.launch(intent)
 
     }
-    val resultLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result ->
-        if (result.resultCode==Activity.RESULT_OK){
-            val intentData = result.data
-            intentData?.let { data->
-                val imageUri =data.data
-                imageUri?.let { uri ->
-                    Glide.with(requireContext()).load(uri)
+
+    val resultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intentData = result.data
+                intentData?.let { data ->
+                    val imageUri = data.data
+                    imageUri?.let { uri ->
+                        Glide.with(requireContext()).load(uri)
+                    }
                 }
             }
         }
-    }
 
-    private fun clickLunch(){
-        val items = arrayOf<CharSequence> ("카메라로 촬영","앨범에서 선택")
+    private fun clickLunch() {
+        val items = arrayOf<CharSequence>("카메라로 촬영", "앨범에서 선택")
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("사진선택")
         builder.setItems(items) { dialog, which ->
@@ -150,8 +158,8 @@ class DietHomeFragment:Fragment() {
 
     }
 
-    private fun clickDinner(){
-        val items = arrayOf<CharSequence> ("카메라로 촬영","앨범에서 선택")
+    private fun clickDinner() {
+        val items = arrayOf<CharSequence>("카메라로 촬영", "앨범에서 선택")
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("사진선택")
         builder.setItems(items) { dialog, which ->
@@ -167,4 +175,4 @@ class DietHomeFragment:Fragment() {
 
     }
 
-    }
+}
