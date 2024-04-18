@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -35,7 +36,6 @@ class DietHomeFragment : Fragment() {
 
 
     private val binding by lazy { FragmentDietHomeBinding.inflate(layoutInflater) }
-    private var imageUriToResult :String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -139,13 +139,14 @@ class DietHomeFragment : Fragment() {
 
     }
 
-    val resultLauncher: ActivityResultLauncher<Intent> =
+    private val resultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val intentData = result.data
                 intentData?.let { data ->
                     val imageUri = data.data
                     imageUri?.let { uri ->
+
                         imageUriToResult = uri.toString()
 
                     }
@@ -153,6 +154,11 @@ class DietHomeFragment : Fragment() {
                 startActivity(Intent(requireActivity(), ResultActivity::class.java).putExtra("uri", imageUriToResult))
             }
         }
+
+
+
+
+
 
     private fun clickLunch() {
         val items = arrayOf<CharSequence>("카메라로 촬영", "앨범에서 선택")
