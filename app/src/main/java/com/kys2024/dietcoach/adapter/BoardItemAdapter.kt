@@ -18,7 +18,6 @@ class BoardItemAdapter( val context : Context, val boardDatas : List<BoardData>)
 
     inner class VH(val binding : RecyclerBoradListFragmentBinding) : ViewHolder(binding.root)
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val layoutInflater= LayoutInflater.from(context)
         val binding= RecyclerBoradListFragmentBinding.inflate(layoutInflater, parent, false)
