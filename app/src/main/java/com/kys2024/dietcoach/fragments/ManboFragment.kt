@@ -147,7 +147,7 @@ class ManboFragment : Fragment(), SensorEventListener {
 
     private fun updateStepCount(stepCount: Int) {
         // UI 업데이트
-        binding.tvStepbox.text = "총 $stepCount 걸음 수"
+        binding.tvStepbox.text = "총 $stepCount / 10000 걸음 수"
     }
 
     override fun onDestroyView() {

@@ -8,7 +8,8 @@
     tools:context=".activity.LoginMemberShipActivity"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:backgroundTint="@color/whitewhitegreen2">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -52,7 +53,9 @@
         android:id="@+id/input_layout_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="이메일">
+        android:hint="이메일"
+        app:hintTextColor="@color/green"
+        app:boxStrokeColor="@color/green">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -68,7 +71,9 @@
         android:id="@+id/input_layout_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="비밀번호">
+        android:hint="비밀번호"
+        app:hintTextColor="@color/green"
+        app:boxStrokeColor="@color/green">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -84,7 +89,9 @@
         android:id="@+id/input_layout_password_check"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="비밀번호 확인">
+        android:hint="비밀번호 확인"
+        app:hintTextColor="@color/green"
+        app:boxStrokeColor="@color/green">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
