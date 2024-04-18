@@ -30,9 +30,8 @@ class MyInformationActivity : AppCompatActivity() {
 
 
     }
-//    private fun clickSave(){
-//        finish()
-//    }
+
+
 
     private fun clickBtn(){
 

@@ -56,7 +56,7 @@
 //        val fileName:String? = cursor?.run {
 //            moveToFirst()
 //            getString(getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
-//        }
+//        }--------------------------------------------------------------------------------------
 //
 //        // 복사본이 저장될 파일의 경로와 파일명. 확장자
 //        val file: File = File(requireContext().externalCacheDir,fileName)
@@ -94,6 +94,7 @@
 //        val dataPart: MutableMap<String, String> = mutableMapOf()
 //        dataPart["userid"] = G.userAccount!!.uid.toString()
 //        dataPart["profile"] = G.userAccount!!.uri.toString()
+//         dataPart["nickname"] = G.userAccount!!.nickname.toString()
 //        dataPart["msg"] = binding.msg.editext!!.text.toString()//글쓴 텍스트들을 msg로
 //
 //
@@ -109,9 +110,6 @@
 //            override fun onResponse(call: Call<String>, response: Response<String>) {
 //                val s = response.body()
 //                Toast.makeText(requireContext(), "$s 성공", Toast.LENGTH_SHORT).show()
-//
-//
-//
 //            }
 //
 //            override fun onFailure(call: Call<String>, t: Throwable) {

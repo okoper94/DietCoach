@@ -59,11 +59,10 @@ class WriteBoardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView( binding.root )
 
-        val sharedPreferences = getSharedPreferences("ID", Context.MODE_PRIVATE)
-        userId = sharedPreferences.getString("userid", null)
+        userId = G.userAccount?.uid
         Log.d("id보기", "id: ${userId}")
 
-         binding.writeSelectImageLayout.setOnClickListener {
+        binding.writeSelectImageLayout.setOnClickListener {
             openImageSelector()
         }
 
@@ -84,6 +83,7 @@ class WriteBoardActivity : AppCompatActivity() {
         if ( imageUri != null ) {
             imgPath = getRealPathFromUri(imageUri!!)
             clickUpload()
+
         } else {
             Toast.makeText( this, "이미지가 없습니다", Toast.LENGTH_SHORT).show()
         }
@@ -187,6 +187,7 @@ class WriteBoardActivity : AppCompatActivity() {
         retrofitService.uploadboard(dataPart, filepart).enqueue(object : Callback<String> {
             override fun onResponse(p0: Call<String>, p1: Response<String>) {
                 Toast.makeText(this@WriteBoardActivity, "업로드 성공", Toast.LENGTH_SHORT).show()
+                finish()
             }
 
             override fun onFailure(p0: Call<String>, p1: Throwable) {
