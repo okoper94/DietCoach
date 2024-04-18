@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity"
     android:background="@color/white"
-    >
+    android:backgroundTint="@color/whitewhitegreen2">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main"
@@ -30,6 +30,7 @@
                 android:layout_marginEnd="0dp"
                 android:backgroundTint="@color/white"
                 app:navigationIcon="@drawable/ic_action_login3">
+
 
 
 
@@ -87,7 +88,7 @@
                 app:menu="@menu/bottom_navigation"
                 android:background="@color/white"
                 app:itemIconTint="@color/green"
-                app:itemTextColor="@color/green"/>
+                app:itemTextColor="@color/green" />
 
         </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -99,6 +100,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/drawer_view"
-        app:headerLayout="@layout/drawer_header"/>
+        app:headerLayout="@layout/drawer_header"
+        android:backgroundTint="@color/whitewhitegreen2"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
