@@ -1,7 +1,8 @@
 package com.psg2024.ex68retrofitmarketapp
 
-import com.kys2024.dietcoach.data.LoadBoardData
+import com.kys2024.dietcoach.data.BoardData
 import com.kys2024.dietcoach.data.LoadUserData
+import com.kys2024.dietcoach.data.MypageData
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -36,5 +37,8 @@ interface RetrofitService {
     fun loadDataFromServer(@Body data: HashMap<String, String>) :Call<LoadUserData>
 
     @POST("/DietCoach/boardDBload.php")
-    fun loadDataFromServerboard() :Call<LoadBoardData>
+    fun loadDataFromServerboard() :Call<List<BoardData>>
+
+
+
 }

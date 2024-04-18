@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+
+import com.kys2024.dietcoach.activity.MainActivity
+import com.kys2024.dietcoach.activity.WriteBoardActivity
+import com.kys2024.dietcoach.adapter.BoardItemAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kys2024.dietcoach.activity.WriteBoardActivity
 import com.kys2024.dietcoach.adapter.BoardItemAdapter
@@ -28,6 +32,11 @@ class DietBoardFragment :Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val ma:MainActivity = activity as MainActivity
+        ma.loadBoardData ?: return
+        binding.recyclerViewBoard.adapter = BoardItemAdapter(requireContext(), ma.loadBoardData!!)
+
+
         binding.btn.setOnClickListener {
             startActivity( Intent( requireActivity(), WriteBoardActivity::class.java ) )
 
@@ -38,16 +47,13 @@ class DietBoardFragment :Fragment(){
 
 
 
-        val boardItems = loadBoardItems()
-        binding.recyclerViewBoard.adapter = BoardItemAdapter( requireContext(), boardItems )
 
-        binding.recyclerViewBoard.layoutManager = LinearLayoutManager( context )
     }
+    override fun onResume() {
+        super.onResume()
+        binding.recyclerViewBoard.adapter?.notifyDataSetChanged()
 
-    private fun loadBoardItems() : List<BoardItem> {
-        return listOf(
-//            BoardItem( "이미지uri..", "메세지.." )
-        )
+
 
     }
 }
