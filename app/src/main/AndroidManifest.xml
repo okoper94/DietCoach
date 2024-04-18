@@ -24,6 +24,8 @@
         <activity
             android:name=".activity.WriteBoardActivity"
             android:exported="false" />
+        <activity android:name=".activity.ResultActivity"
+            android:exported="false"/>
         <activity
             android:name=".activity.CalendarViewActivity"
             android:exported="false" />

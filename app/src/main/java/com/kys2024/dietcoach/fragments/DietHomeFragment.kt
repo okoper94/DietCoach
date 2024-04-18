@@ -36,17 +36,20 @@ class DietHomeFragment : Fragment() {
 
 
     private val binding by lazy { FragmentDietHomeBinding.inflate(layoutInflater) }
-    private var currentImageUri: Uri? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        binding.goac.setOnClickListener { startActivity(Intent(requireActivity(), ResultActivity::class.java)) }
 
         // 넣고 싶은 데이터 설정
         val dataList: List<PieEntry> = listOf(
@@ -95,9 +98,11 @@ class DietHomeFragment : Fragment() {
             setEntryLabelColor(Color.BLACK) // label 색상
             animateY(1400, Easing.EaseInOutQuad) // 1.4초 동안 애니메이션 설정
 
-            binding.relativeLayoutMorning.setOnClickListener { clickMorning() }
+            binding.relativeLayoutMorning.setOnClickListener { clickMorning()
+            }
             binding.relativeLayoutLunch.setOnClickListener { clickLunch() }
             binding.relativeLayoutDinner.setOnClickListener { clickDinner() }
+
         }
     }
 
@@ -119,6 +124,9 @@ class DietHomeFragment : Fragment() {
     private fun takePicture() {  //카메라앱
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         resultLauncher.launch(intent)
+
+
+
     }
 
     private fun chooseFromGallery() {  //사진앨범
@@ -127,6 +135,7 @@ class DietHomeFragment : Fragment() {
                 Intent.ACTION_OPEN_DOCUMENT
             ).setType("image/*")
         resultLauncher.launch(intent)
+
 
     }
 
@@ -138,8 +147,11 @@ class DietHomeFragment : Fragment() {
                     val imageUri = data.data
                     imageUri?.let { uri ->
 
+                        imageUriToResult = uri.toString()
+
                     }
                 }
+                startActivity(Intent(requireActivity(), ResultActivity::class.java).putExtra("uri", imageUriToResult))
             }
         }
 
