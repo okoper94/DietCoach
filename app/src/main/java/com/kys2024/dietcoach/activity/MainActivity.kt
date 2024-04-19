@@ -16,8 +16,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
-import com.kys2024.dietcoach.adapter.FoodDataAdapter
-import com.kys2024.dietcoach.data.BoardData
 import com.kys2024.dietcoach.data.FoodData
 import com.kys2024.dietcoach.data.FoodTime
 import com.kys2024.dietcoach.data.LoadUserData
@@ -44,10 +42,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: Toolbar
     private lateinit var navigationView: NavigationView
-
-
-    private lateinit var foodDataList: List<FoodData>
-    private lateinit var foodDataAdapter: FoodDataAdapter
     var loadBoardData: List<BoardData>? = listOf()
 
 
@@ -100,8 +94,7 @@ class MainActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
-                var drawerNickname = findViewById<TextView>(R.id.drawer_name)
-                drawerNickname.text=""
+
             } else {
                 drawerLayout.openDrawer(GravityCompat.START)
             }
@@ -140,9 +133,10 @@ class MainActivity : AppCompatActivity() {
 
 
         val headerView = navigationView.getHeaderView(0)
-
         val drawerImage = headerView.findViewById<ImageView>(R.id.drawer_image)
         val drawerName = headerView.findViewById<TextView>(R.id.drawer_name)
+
+        drawerName.text="이름"
 
         drawerImage.setOnClickListener {
 
@@ -157,6 +151,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         loadDB2()
+
         loadDB()
 
 

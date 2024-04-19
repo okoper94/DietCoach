@@ -17,10 +17,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -40,8 +42,6 @@ import com.kys2024.dietcoach.data.FoodBoardData
 import com.kys2024.dietcoach.data.FoodTime
 import com.kys2024.dietcoach.data.LoadUserData
 import com.kys2024.dietcoach.databinding.FragmentDietHomeBinding
-import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
-import com.psg2024.ex68retrofitmarketapp.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,6 +59,8 @@ class DietHomeFragment : Fragment() {
     private var todaytime:String? =G.todaydate?.todaydate
     var loadBoardData: List<FoodBoardData>? = listOf()
 
+
+    private var currentPhotoPath: String? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -178,13 +180,53 @@ class DietHomeFragment : Fragment() {
     }
 
     private fun takePicture() {  //카메라앱
+
         setPhotoUri ()
-//        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        resultLauncher.launch(intent)
+       val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+       resultLauncher.launch(intent)
+
+
+        val photoFile: File? = try {
+            createImageFile()
+        } catch (ex: IOException) {
+            // Error occurred while creating the File
+            null
+        }
+        photoFile?.also {
+            val photoURI: Uri = FileProvider.getUriForFile(
+                requireContext(),
+                "${requireContext().packageName}.provider",
+                it
+            )
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            }
+            resultLauncher.launch(intent)
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir: File? = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+        }
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        resultLauncher.launch(intent)
+
 
 
 
     }
+
 
     private fun chooseFromGallery() {  //사진앨범
         val intent =
@@ -196,7 +238,20 @@ class DietHomeFragment : Fragment() {
 
     }
 
-    val resultLauncher: ActivityResultLauncher<Intent> =
+
+    val imageView = view?.findViewById<ImageView>(R.id.result_iv)
+    val resultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val imageUri = result.data?.data
+            if (imageUri != null) {
+                val intent = Intent(requireContext(), ResultActivity::class.java).apply {
+                    putExtra("imageUri", imageUri.toString())
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "이미지를 선택하지 않았습니다", Toast.LENGTH_SHORT).show()
+
+    private val resultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 imageUriToResult = result.data?.data
@@ -206,6 +261,7 @@ class DietHomeFragment : Fragment() {
             }
 
         }
+
     private fun setPhotoUri () {
         //내장 저장공간의 외부 저장소 중에서 공용영역에 저장 - 앱을 삭제해도 파일은 남아있음
         // 공용영역의 경로부터..
@@ -222,6 +278,7 @@ class DietHomeFragment : Fragment() {
         //여기까지 경로가 잘 되었는지 확인
         AlertDialog.Builder(requireContext()).setMessage(file.toString()).create().show()
     }
+
 
     private fun clickLunch() {
         val time ="lunch"
@@ -261,5 +318,3 @@ class DietHomeFragment : Fragment() {
 
     }
 }
-
-
