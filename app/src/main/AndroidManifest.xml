@@ -27,6 +27,8 @@
         <activity
             android:name=".activity.WriteBoardActivity"
             android:exported="false" />
+        <activity android:name=".activity.ResultActivity"
+            android:exported="false"/>
         <activity
             android:name=".activity.CalendarViewActivity"
             android:exported="false" />
@@ -39,6 +41,11 @@
         <activity
             android:name=".activity.LoginEmailActivity"
             android:exported="false" />
+
+        <activity android:name=".activity.ResultActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity"/>
+
         <activity
             android:name=".activity.LoginActivity"
             android:exported="true">

@@ -53,10 +53,13 @@ class DietHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        binding.goac.setOnClickListener { startActivity(Intent(requireActivity(), ResultActivity::class.java)) }
 
         // 넣고 싶은 데이터 설정
         val dataList: List<PieEntry> = listOf(
@@ -105,9 +108,11 @@ class DietHomeFragment : Fragment() {
             setEntryLabelColor(Color.BLACK) // label 색상
             animateY(1400, Easing.EaseInOutQuad) // 1.4초 동안 애니메이션 설정
 
-            binding.relativeLayoutMorning.setOnClickListener { clickMorning() }
+            binding.relativeLayoutMorning.setOnClickListener { clickMorning()
+            }
             binding.relativeLayoutLunch.setOnClickListener { clickLunch() }
             binding.relativeLayoutDinner.setOnClickListener { clickDinner() }
+
         }
     }
 
@@ -127,6 +132,7 @@ class DietHomeFragment : Fragment() {
     }
 
     private fun takePicture() {  //카메라앱
+
         val photoFile: File? = try {
             createImageFile()
         } catch (ex: IOException) {
@@ -159,6 +165,13 @@ class DietHomeFragment : Fragment() {
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
         }
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        resultLauncher.launch(intent)
+
+
+
+
     }
 
 
@@ -169,7 +182,9 @@ class DietHomeFragment : Fragment() {
             ).setType("image/*")
         resultLauncher.launch(intent)
 
+
     }
+
 
     val imageView = view?.findViewById<ImageView>(R.id.result_iv)
     val resultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -182,6 +197,21 @@ class DietHomeFragment : Fragment() {
                 startActivity(intent)
             } else {
                 Toast.makeText(requireContext(), "이미지를 선택하지 않았습니다", Toast.LENGTH_SHORT).show()
+
+    private val resultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intentData = result.data
+                intentData?.let { data ->
+                    val imageUri = data.data
+                    imageUri?.let { uri ->
+
+                        imageUriToResult = uri.toString()
+
+                    }
+                }
+                startActivity(Intent(requireActivity(), ResultActivity::class.java).putExtra("uri", imageUriToResult))
+
             }
         }
     }
@@ -199,6 +229,11 @@ class DietHomeFragment : Fragment() {
 //                }
 //            }
 //        }
+
+
+
+
+
 
     private fun clickLunch() {
         val items = arrayOf<CharSequence>("카메라로 촬영", "앨범에서 선택")

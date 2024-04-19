@@ -84,8 +84,7 @@ class MainActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
-                var drawerNickname = findViewById<TextView>(R.id.drawer_name)
-                drawerNickname.text=""
+
             } else {
                 drawerLayout.openDrawer(GravityCompat.START)
             }
@@ -124,9 +123,10 @@ class MainActivity : AppCompatActivity() {
 
 
         val headerView = navigationView.getHeaderView(0)
-
         val drawerImage = headerView.findViewById<ImageView>(R.id.drawer_image)
         val drawerName = headerView.findViewById<TextView>(R.id.drawer_name)
+
+        drawerName.text="이름"
 
         drawerImage.setOnClickListener {
 
