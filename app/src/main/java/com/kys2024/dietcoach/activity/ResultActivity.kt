@@ -1,9 +1,11 @@
 package com.kys2024.dietcoach.activity
 
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.adapter.FoodDataAdapter
 import com.kys2024.dietcoach.data.FoodData
 import com.kys2024.dietcoach.data.FoodName
@@ -11,7 +13,9 @@ import com.kys2024.dietcoach.data.FoodResponse
 import com.kys2024.dietcoach.databinding.ActivityResultBinding
 import com.kys2024.dietcoach.ml.Modelfood
 import com.kys2024.dietcoach.network.FoodApiService
+import com.psg2024.ex68retrofitmarketapp.RetrofitHelper
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper2
+import com.psg2024.ex68retrofitmarketapp.RetrofitService
 import org.tensorflow.lite.support.image.TensorImage
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,11 +30,20 @@ class ResultActivity : AppCompatActivity() {
 
     private lateinit var foodDataList: List<FoodData>
     private lateinit var foodDataAdapter: FoodDataAdapter
+    var foodname : String =""
+    var calories : String =""
+    var carbsgram : String =""
+    var proteingram : String =""
+    var fatgram : String =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        val s=intent.getStringExtra("uri")
+
+        binding.resultIv.setImageURI(Uri.parse(s))
 
         imageAnalysis()
+        binding.savedata.setOnClickListener { serverTofooddataUpload() }
     }
 
     val foodNameMap: MutableMap<String, FoodName> = mutableMapOf()
@@ -95,6 +108,11 @@ class ResultActivity : AppCompatActivity() {
                                 "음식명 : ${filteredList.first().foodName} ${filteredList.first().calories} 칼로리 " +
                                         "\n 탄수화물 : ${filteredList.first().carbsGram} \n " +
                                         "단백질 : ${filteredList.first().proteinGram} \n 지방 : ${filteredList.first().fatGram}"
+                             foodname =filteredList.first().foodName
+                             calories =filteredList.first().calories
+                             carbsgram =filteredList.first().carbsGram
+                             proteingram =filteredList.first().proteinGram
+                             fatgram =filteredList.first().fatGram
                             Toast.makeText(this@ResultActivity, "됬나", Toast.LENGTH_SHORT).show()
                         } else {
                             binding.resultTv.text = "검색 결과가 없습니다."
@@ -109,7 +127,44 @@ class ResultActivity : AppCompatActivity() {
                 Toast.makeText(this@ResultActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+
+
     }
+    fun serverTofooddataUpload() {
+
+        val retrofit = RetrofitHelper.getRetrofitInstance()
+        val retrofitService = retrofit.create(RetrofitService::class.java)
+
+        // 먼저 String 데이터들은 Map collection 으로 묶어서 전송: @PartMap
+        val data: HashMap<String, String> = hashMapOf()
+        data["userid"] = G.userAccount!!.uid.toString()
+        data["food"] = foodname
+        data["carbohydrates"] = carbsgram
+        data["kcal"] = calories
+        data["protein"] = proteingram
+        data["lipid"] = fatgram
+        data["date"] = System.currentTimeMillis().toString()
+        data["time"] = G.foodtime?.time.toString()
+
+
+
+        //네트워크 작업 시작
+        retrofitService.postdataTofooddata(data).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                val s = response.body()
+                Toast.makeText(this@ResultActivity, "음식데이터 전송", Toast.LENGTH_SHORT).show()
+                finish()}// 업로드가 완료되면 액티비티 종료
+
+
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Toast.makeText(this@ResultActivity, "실패:${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+    }//서버업로드
 }
 
 

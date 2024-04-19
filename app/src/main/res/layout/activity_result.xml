@@ -37,6 +37,13 @@
             android:layout_marginTop="8dp"
             android:textSize="20sp"/>
 
+        <Button
+            android:id="@+id/savedata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/result_tv"
+            android:text="저장"/>
+
 
 
 

@@ -157,8 +157,6 @@ class LoginActivity : AppCompatActivity() {
     private fun clickNaverLogin() {
         //네이버 토큰을 받을 변수를 설정합니다.
         var naverToken: String? = ""
-
-
         val profileCallback = object : NidProfileCallback<NidProfileResponse> {
             override fun onSuccess(response: NidProfileResponse) {
                 userId = response.profile?.id
@@ -176,10 +174,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
                 }
-
-
             }
-
             override fun onFailure(httpStatus: Int, message: String) {
                 val errorCode = NaverIdLoginSDK.getLastErrorCode().code
                 val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
@@ -188,12 +183,9 @@ class LoginActivity : AppCompatActivity() {
                             "errorDescription: ${errorDescription}", Toast.LENGTH_SHORT
                 ).show()
             }
-
             override fun onError(errorCode: Int, message: String) {
                 onFailure(errorCode, message)
             }
-
-
         }
         val oauthLoginCallback = object : OAuthLoginCallback {
             override fun onSuccess() {

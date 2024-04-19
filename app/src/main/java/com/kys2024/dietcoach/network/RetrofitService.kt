@@ -1,6 +1,7 @@
 package com.psg2024.ex68retrofitmarketapp
 
 import com.kys2024.dietcoach.data.BoardData
+import com.kys2024.dietcoach.data.FoodBoardData
 import com.kys2024.dietcoach.data.LoadUserData
 import com.kys2024.dietcoach.data.MypageData
 import okhttp3.MultipartBody
@@ -17,6 +18,9 @@ interface RetrofitService {
 
     @POST("/DietCoach/usertable.php")
     fun postdataToServer(@Body data: HashMap<String, String>): Call<String>
+
+    @POST("/DietCoach/fooddata.php")
+    fun postdataTofooddata(@Body data: HashMap<String, String>): Call<String>
     @POST("/DietCoach/emailLogin.php")
     fun postLogindataToServer(@Body data: HashMap<String, String>): Call<String>
 
@@ -35,6 +39,9 @@ interface RetrofitService {
 
     @POST("/DietCoach/loadDB.php")
     fun loadDataFromServer(@Body data: HashMap<String, String>) :Call<LoadUserData>
+
+    @POST("/DietCoach/loadfoodDB.php")
+    fun loadFoodDataFromServer(@Body data: HashMap<String, String>) :Call<List<FoodBoardData>>
 
     @POST("/DietCoach/boardDBload.php")
     fun loadDataFromServerboard() :Call<List<BoardData>>
