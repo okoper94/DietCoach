@@ -16,8 +16,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
-import com.kys2024.dietcoach.data.BoardData
+import com.kys2024.dietcoach.data.FoodData
+import com.kys2024.dietcoach.data.FoodTime
 import com.kys2024.dietcoach.data.LoadUserData
+import com.kys2024.dietcoach.data.TodayDate
 import com.kys2024.dietcoach.databinding.ActivityMainBinding
 import com.kys2024.dietcoach.fragments.DietBoardFragment
 import com.kys2024.dietcoach.fragments.DietCalendarFragment
@@ -28,6 +30,9 @@ import com.psg2024.ex68retrofitmarketapp.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +47,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val today = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+        val formattedDate = dateFormat.format(today.time)
+        G.todaydate = TodayDate(formattedDate)
 
 
         //툴바 타이틀제거

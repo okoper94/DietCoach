@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
@@ -12,6 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,12 +34,20 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.activity.ResultActivity
+import com.kys2024.dietcoach.data.BoardData
+import com.kys2024.dietcoach.data.FoodBoardData
+import com.kys2024.dietcoach.data.FoodTime
+import com.kys2024.dietcoach.data.LoadUserData
 import com.kys2024.dietcoach.databinding.FragmentDietHomeBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
-import java.io.IOException
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -45,6 +55,10 @@ class DietHomeFragment : Fragment() {
 
 
     private val binding by lazy { FragmentDietHomeBinding.inflate(layoutInflater) }
+    private var imageUriToResult :Uri? =null
+    private var todaytime:String? =G.todaydate?.todaydate
+    var loadBoardData: List<FoodBoardData>? = listOf()
+
 
     private var currentPhotoPath: String? = null
     override fun onCreateView(
@@ -58,6 +72,7 @@ class DietHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
 //        binding.goac.setOnClickListener { startActivity(Intent(requireActivity(), ResultActivity::class.java)) }
 
@@ -116,7 +131,40 @@ class DietHomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadfoodkcal()
+    }
+
+    private fun loadfoodkcal() {
+        val retrofit = RetrofitHelper.getRetrofitInstance()
+        val retrofitService = retrofit.create(RetrofitService::class.java)
+
+
+        val data: HashMap<String, String> = hashMapOf()
+        data["userid"] = G.userAccount?.uid.toString()
+        data["time"] = G.foodtime?.time.toString()
+        data["date"] = todaytime.toString()
+        retrofitService.loadFoodDataFromServer(data).enqueue(object : Callback<List<FoodBoardData>>{
+            override fun onResponse(
+                p0: Call<List<FoodBoardData>>,
+                p1: Response<List<FoodBoardData>>
+            ) {
+                var totalkcal:Float =0.0F
+               val response = p1.body()
+                response?.forEach { totalkcal += it.kcal.toFloat() }
+                binding.bkcal.text = "${totalkcal.toString()}Kcal"
+            }
+
+            override fun onFailure(p0: Call<List<FoodBoardData>>, p1: Throwable) {
+                Toast.makeText(requireContext(), "실패${p1.message}", Toast.LENGTH_SHORT).show()
+            }
+        } )
+    }
+
     private fun clickMorning() { //아침메뉴 선택시 다이얼로그로 카메라 촬영 앨범 선택 사항
+        val time ="breakfast"
+        G.foodtime = FoodTime(time)
         val items = arrayOf<CharSequence>("카메라로 촬영", "앨범에서 선택")
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("사진선택")
@@ -132,6 +180,11 @@ class DietHomeFragment : Fragment() {
     }
 
     private fun takePicture() {  //카메라앱
+
+        setPhotoUri ()
+       val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+       resultLauncher.launch(intent)
+
 
         val photoFile: File? = try {
             createImageFile()
@@ -201,41 +254,35 @@ class DietHomeFragment : Fragment() {
     private val resultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val intentData = result.data
-                intentData?.let { data ->
-                    val imageUri = data.data
-                    imageUri?.let { uri ->
+                imageUriToResult = result.data?.data
 
-                        imageUriToResult = uri.toString()
-
-                    }
-                }
-                startActivity(Intent(requireActivity(), ResultActivity::class.java).putExtra("uri", imageUriToResult))
-
+                Log.d("사진주소", "${result.data?.data}, $imageUriToResult")
+                startActivity(Intent(requireActivity(), ResultActivity::class.java).putExtra("uri", imageUriToResult.toString()))
             }
+
         }
+
+    private fun setPhotoUri () {
+        //내장 저장공간의 외부 저장소 중에서 공용영역에 저장 - 앱을 삭제해도 파일은 남아있음
+        // 공용영역의 경로부터..
+        val path: File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+
+        //경로는 정해졌으니. 저장될 파일의 이름과 확장자를 정하기 - 중복되지 않도록 날짜를 이용하여 명명
+        val sdf: SimpleDateFormat = SimpleDateFormat("yyyyMMddHHmmss")
+        val fileName: String = "IMG_${sdf.format(Date())}.jpg"//"IMG_20240219143924.jpg"
+
+        //경로와 파일명을 결합
+        val file: File = File(path, fileName)
+
+        //여기까지 경로가 잘 되었는지 확인
+        AlertDialog.Builder(requireContext()).setMessage(file.toString()).create().show()
     }
 
 
-//    val resultLauncher: ActivityResultLauncher<Intent> =
-//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//            if (result.resultCode == Activity.RESULT_OK) {
-//                val intentData = result.data
-//                intentData?.let { data ->
-//                    val imageUri = data.data
-//                    imageUri?.let { uri ->
-//                        Glide.with(requireContext()).load(uri).into(imageView!!)  // 대상 ImageView를 지정해야 합니다.
-//                    }
-//                }
-//            }
-//        }
-
-
-
-
-
-
     private fun clickLunch() {
+        val time ="lunch"
+        G.foodtime = FoodTime(time)
         val items = arrayOf<CharSequence>("카메라로 촬영", "앨범에서 선택")
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("사진선택")
@@ -253,6 +300,8 @@ class DietHomeFragment : Fragment() {
     }
 
     private fun clickDinner() {
+        val time ="dinner"
+        G.foodtime = FoodTime(time)
         val items = arrayOf<CharSequence>("카메라로 촬영", "앨범에서 선택")
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("사진선택")
@@ -268,7 +317,4 @@ class DietHomeFragment : Fragment() {
 
 
     }
-
-
-
 }
