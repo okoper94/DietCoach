@@ -16,9 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.kys2024.dietcoach.G
 import com.kys2024.dietcoach.R
-import com.kys2024.dietcoach.adapter.FoodDataAdapter
 import com.kys2024.dietcoach.data.BoardData
-import com.kys2024.dietcoach.data.FoodData
 import com.kys2024.dietcoach.data.LoadUserData
 import com.kys2024.dietcoach.databinding.ActivityMainBinding
 import com.kys2024.dietcoach.fragments.DietBoardFragment
@@ -39,10 +37,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: Toolbar
     private lateinit var navigationView: NavigationView
-
-
-    private lateinit var foodDataList: List<FoodData>
-    private lateinit var foodDataAdapter: FoodDataAdapter
     var loadBoardData: List<BoardData>? = listOf()
 
 
@@ -147,6 +141,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         loadDB2()
+
         loadDB()
 
 

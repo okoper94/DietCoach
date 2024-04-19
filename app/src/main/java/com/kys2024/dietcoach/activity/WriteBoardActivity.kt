@@ -46,6 +46,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -77,11 +78,20 @@ class WriteBoardActivity : AppCompatActivity() {
         binding.writeIvBack.setOnClickListener {
             showCancelConfirmationDialog()
         }
+
+        val imagePath = intent.getStringExtra("imagePath")
+        if (imagePath != null) {
+            Log.d("Result Activity", "Received imagePath: $imagePath")
+            Glide.with(this).load(File(imagePath)).into(findViewById(R.id.write_iv))
+        } else {
+            Log.d("Result Activity", "No imagePath provided")
+        }
     }
 
     private fun saveData() {
         if ( imageUri != null ) {
             imgPath = getRealPathFromUri(imageUri!!)
+            Log.d("Image Path", "imgPath: $imgPath")
             clickUpload()
 
         } else {
@@ -96,6 +106,7 @@ class WriteBoardActivity : AppCompatActivity() {
             Intent( Intent.ACTION_OPEN_DOCUMENT ).setType( "image/*" )
         }
         resultLauncher.launch( intent )
+        Log.d("Image Selector", "Opening image selector")
     }
 
     private fun showImageNotSelectedDialog() {
@@ -116,6 +127,7 @@ class WriteBoardActivity : AppCompatActivity() {
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode== RESULT_OK) {
             imageUri = result.data?.data
+            Log.d("Image Result", "Selected image URI: $imageUri")
             if (imageUri != null) {
 
                 Glide.with(this).load(imageUri).apply(RequestOptions()).into(binding.writeIv)
@@ -128,34 +140,70 @@ class WriteBoardActivity : AppCompatActivity() {
     }
 
     private fun getRealPathFromUri(uri: Uri): String? {
+        var filePath: String? = null
+        val cursorLoader = CursorLoader(this, uri, null, null, null, null)
+        val cursor = cursorLoader.loadInBackground()
 
-        // Uri[미디어저장소의 DB주소]로 부터 파일의 이름을 얻어오기 - DB SELECT 쿼리작업을 해주는 기능을 가진 객체를 이용
-        val cursorLoader : CursorLoader = CursorLoader(this, uri, null, null, null, null)
-        val cursor: Cursor? =cursorLoader.loadInBackground()
-        val fileName:String? = cursor?.run {
-            moveToFirst()
-            getString(getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
+        cursor?.use { cur ->
+            if (cur.moveToFirst()) {
+                val fileName = cur.getString(cur.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
+                val file = File(this.externalCacheDir, fileName)
+                try {
+                    this.contentResolver.openInputStream(uri)?.use { inputStream ->
+                        FileOutputStream(file).use { outputStream ->
+                            val buf = ByteArray(1024)
+                            while (true) {
+                                val len = inputStream.read(buf)
+                                if (len <= 0) break
+                                outputStream.write(buf, 0, len)
+                            }
+                        }
+                    }
+                    filePath = file.absolutePath
+                } catch (e: IOException) {
+                    Log.e("File Copy", "Error copying file: ${e.localizedMessage}")
+                }
+            }
         }
 
-        // 복사본이 저장될 파일의 경로와 파일명. 확장자
-        val file: File = File(this.externalCacheDir,fileName)
-
-        //이제 진짜 복사작업 수행
-        val inputStream: InputStream =this.contentResolver.openInputStream(uri) ?: return null
-        val outputStream: OutputStream = FileOutputStream(file)
-
-        //파일복사
-        while (true){
-            val buf: ByteArray = ByteArray(1024) // 빈 바이트 배열[길이1kb]
-            val len:Int =inputStream.read(buf) //스트림을 통해 읽어들인 바이트들을 buf배열에 넣어줌-- 읽어들인 바이트 수를 리턴해줌
-            if(len <=0) break
-            outputStream.write(buf, 0, len)
-        }
-        //반복문이 끝났으면 복사가 완료된 것임.
-        inputStream.close()
-        outputStream.close()
-        return file.absolutePath
+        Log.d("Real Path", "Path from URI: $filePath")
+        return filePath
     }
+
+//    private fun getRealPathFromUri(uri: Uri): String? {
+//
+//        // Uri[미디어저장소의 DB주소]로 부터 파일의 이름을 얻어오기 - DB SELECT 쿼리작업을 해주는 기능을 가진 객체를 이용
+//        val cursorLoader : CursorLoader = CursorLoader(this, uri, null, null, null, null)
+//        val cursor: Cursor? =cursorLoader.loadInBackground()
+//        val fileName:String? = cursor?.run {
+//            moveToFirst()
+//            getString(getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
+//        }
+//
+//        // 복사본이 저장될 파일의 경로와 파일명. 확장자
+//        val file: File = File(this.externalCacheDir,fileName)
+//
+//        //이제 진짜 복사작업 수행
+//        val inputStream: InputStream =this.contentResolver.openInputStream(uri) ?: return null
+//        val outputStream: OutputStream = FileOutputStream(file)
+//
+//        //파일복사
+//        while (true){
+//            val buf: ByteArray = ByteArray(1024) // 빈 바이트 배열[길이1kb]
+//            val len:Int =inputStream.read(buf) //스트림을 통해 읽어들인 바이트들을 buf배열에 넣어줌-- 읽어들인 바이트 수를 리턴해줌
+//            if(len <=0) break
+//            outputStream.write(buf, 0, len)
+//        }
+//        //반복문이 끝났으면 복사가 완료된 것임.
+//        inputStream.close()
+//        outputStream.close()
+//        return file.absolutePath
+//
+//        val realPath = cursor.getString(columnIndex)
+//        Log.d("Real Path", "Path from URI: $realPath")
+//        return realPath
+//
+//    }
 
     private fun  clickUpload(){
 
@@ -182,19 +230,6 @@ class WriteBoardActivity : AppCompatActivity() {
             file.asRequestBody("image/*".toMediaTypeOrNull()) //일종의 진공팩..[파일을 포장]
         val filepart: MultipartBody.Part =
             MultipartBody.Part.createFormData("img1",file.name, requestBody)//식별자, 파일명, 요청Body [택배 스티로폼 상자]
-
-
-        retrofitService.uploadboard(dataPart, filepart).enqueue(object : Callback<String> {
-            override fun onResponse(p0: Call<String>, p1: Response<String>) {
-                Toast.makeText(this@WriteBoardActivity, "업로드 성공", Toast.LENGTH_SHORT).show()
-                finish()
-            }
-
-            override fun onFailure(p0: Call<String>, p1: Throwable) {
-                Toast.makeText(this@WriteBoardActivity, "${p1.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-
 
     }
 }

@@ -1,11 +1,18 @@
 package com.kys2024.dietcoach.activity
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.transition.Transition
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.adapter.FoodDataAdapter
 import com.kys2024.dietcoach.data.FoodData
@@ -16,19 +23,20 @@ import com.kys2024.dietcoach.ml.Modelfood
 import com.kys2024.dietcoach.network.FoodApiService
 import com.psg2024.ex68retrofitmarketapp.RetrofitHelper2
 import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.support.label.Category
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.BufferedReader
+import java.io.IOException
 import java.io.InputStreamReader
-import java.lang.StringBuilder
 
 class ResultActivity : AppCompatActivity() {
 
-    private val binding by lazy { ActivityResultBinding.inflate( layoutInflater ) }
-
+    private val binding by lazy { ActivityResultBinding.inflate(layoutInflater) }
     private lateinit var foodDataList: List<FoodData>
-    private lateinit var foodDataAdapter: FoodDataAdapter
+    private val foodNameMap: MutableMap<String, FoodName> = mutableMapOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,72 +55,98 @@ class ResultActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        imageAnalysis()
-    }
-
-    val foodNameMap: MutableMap<String, FoodName> = mutableMapOf()
-
-    private fun loadFoodName() {
-        val inputStream = assets.open( "foodListUTF8.csv" )
-        val inputStreamReader = InputStreamReader( inputStream )
-        val reader = BufferedReader( inputStreamReader )
-
-        reader.readLine()
-
-        val builder = StringBuilder()
-        while( true ) {
-            val line: String = reader.readLine() ?: break
-            builder.append(line + "\n")
-
-            val data: List<String> = line.split(",")
-            foodNameMap[data[0]] = FoodName(data[1])
+        setSupportActionBar(binding.toolbarBack)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setTitle("")
+        binding.toolbarBack.setNavigationOnClickListener {
+            onBackPressed()
         }
-        binding.resultTv.text = "${foodNameMap}\n\n"
-        binding.resultTv.append( builder.toString() )
-    }
 
-    private fun imageAnalysis() {
+        binding.resultBtnDelete.setOnClickListener {
+            binding.resultIv.setImageResource(0)
+            binding.resultTv.text = ""
+        }
+
 
         loadFoodName()
 
-        val bm = (binding.resultIv.drawable as BitmapDrawable).bitmap
-        val modelFood: Modelfood = Modelfood.newInstance(this)
-        val image: TensorImage = TensorImage.fromBitmap(bm)
-        val outputs: Modelfood.Outputs = modelFood.process(image)
-        val category = outputs.probabilityAsCategoryList.maxByOrNull { it.score }
+        val imageUri = intent.getStringExtra("imageUri")
+        if (imageUri != null) {
+            Glide.with(this)
+                .asBitmap() // 비트맵으로 이미지 로드
+                .load(Uri.parse(imageUri))
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
+                    ) {
+                        binding.resultIv.setImageBitmap(resource) // ImageView에 비트맵 설정
+                        imageAnalysis(resource)
+                    }
 
-        if( category != null ) {
-            val food : FoodName? = foodNameMap[category.label]
-            if( food != null ) {
+                    override fun onLoadCleared(placeholder: Drawable?) {
+
+                    }
+                })
+        } else {
+            Toast.makeText(this, "이미지를 받아오지 못했습니다", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun loadFoodName() {
+        try {
+            val inputStream = assets.open("foodListUTF8.csv")
+            InputStreamReader(inputStream).use { isr ->
+                BufferedReader(isr).use { reader ->
+                    reader.readLine() // Skip header
+                    var line: String?
+                    while (reader.readLine().also { line = it } != null) {
+                        val data = line!!.split(",")
+                        foodNameMap[data[0]] = FoodName(data[1])
+                    }
+                }
+            }
+        } catch (e: IOException) {
+            Toast.makeText(this, "Failed to load food names", Toast.LENGTH_SHORT).show()
+            Log.e("ResultActivity", "Error loading food list: ", e)
+        }
+    }
+
+    private fun imageAnalysis(bitmap: Bitmap) {
+        val modelFood: Modelfood = Modelfood.newInstance(this)
+        try {
+            val image: TensorImage = TensorImage.fromBitmap(bitmap)
+            val outputs: Modelfood.Outputs = modelFood.process(image)
+            val category = outputs.probabilityAsCategoryList.maxByOrNull { it.score }
+            displayResult(category)
+        } finally {
+            modelFood.close()
+        }
+    }
+
+    private fun displayResult(category: Category?) {
+        if (category != null) {
+            val food = foodNameMap[category.label]
+            if (food != null) {
                 binding.resultTv.text = food.name
                 fetchFoodData(food.name)
             } else {
                 binding.resultTv.text = "음식을 인식할 수 없습니다."
             }
         }
-
-        // 모델 닫기
-        modelFood.close()
     }
 
-        private fun fetchFoodData(query: String) {
+    private fun fetchFoodData(query: String) {
         val retrofit = RetrofitHelper2.getRetrofitInstance("https://api.odcloud.kr/api/")
         val foodApiService = retrofit.create(FoodApiService::class.java)
-        val call = foodApiService.getFoods()
-
-        call.enqueue(object : Callback<FoodResponse> {
+        foodApiService.getFoods().enqueue(object : Callback<FoodResponse> {
             override fun onResponse(call: Call<FoodResponse>, response: Response<FoodResponse>) {
                 if (response.isSuccessful) {
-                    val foodResponse = response.body()
-                    if (foodResponse != null) {
-                        foodDataList = foodResponse.data
+                    response.body()?.let {
+                        foodDataList = it.data
                         val filteredList = foodDataList.filter { it.foodName.contains(query, ignoreCase = true) }
                         if (filteredList.isNotEmpty()) {
-                            binding.resultTv.text =
-                                "음식명 : ${filteredList.first().foodName} ${filteredList.first().calories} 칼로리 " +
-                                        "\n 탄수화물 : ${filteredList.first().carbsGram} \n " +
-                                        "단백질 : ${filteredList.first().proteinGram} \n 지방 : ${filteredList.first().fatGram}"
-                            Toast.makeText(this@ResultActivity, "됬나", Toast.LENGTH_SHORT).show()
+                            updateUI(filteredList.first())
                         } else {
                             binding.resultTv.text = "검색 결과가 없습니다."
                         }
@@ -123,9 +157,28 @@ class ResultActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<FoodResponse>, t: Throwable) {
-                Toast.makeText(this@ResultActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ResultActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun updateUI(food: FoodData) {
+        binding.resultTv.text = "음식명: ${food.foodName}\n칼로리: ${food.calories}cal\n" +
+                "탄수화물: ${food.carbsGram}g\n단백질: ${food.proteinGram}g\n지방: ${food.fatGram}g"
+
+        val sharedPreferences = getSharedPreferences("FoodInfo", MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putString("FoodName", food.foodName)
+            putString("Calories", food.calories)
+            apply()
+        }
+    }
+
+    private fun showImageNotSelectedDialog() {
+        AlertDialog.Builder(this)
+            .setMessage("사진이 없습니다")
+            .setPositiveButton("확인") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 }
 

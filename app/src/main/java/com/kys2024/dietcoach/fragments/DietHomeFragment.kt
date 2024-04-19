@@ -10,13 +10,17 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -31,12 +35,18 @@ import com.google.gson.reflect.TypeToken
 import com.kys2024.dietcoach.R
 import com.kys2024.dietcoach.activity.ResultActivity
 import com.kys2024.dietcoach.databinding.FragmentDietHomeBinding
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class DietHomeFragment : Fragment() {
 
 
     private val binding by lazy { FragmentDietHomeBinding.inflate(layoutInflater) }
 
+    private var currentPhotoPath: String? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -122,12 +132,48 @@ class DietHomeFragment : Fragment() {
     }
 
     private fun takePicture() {  //카메라앱
+
+        val photoFile: File? = try {
+            createImageFile()
+        } catch (ex: IOException) {
+            // Error occurred while creating the File
+            null
+        }
+        photoFile?.also {
+            val photoURI: Uri = FileProvider.getUriForFile(
+                requireContext(),
+                "${requireContext().packageName}.provider",
+                it
+            )
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            }
+            resultLauncher.launch(intent)
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir: File? = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+        }
+
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         resultLauncher.launch(intent)
 
 
 
+
     }
+
 
     private fun chooseFromGallery() {  //사진앨범
         val intent =
@@ -138,6 +184,19 @@ class DietHomeFragment : Fragment() {
 
 
     }
+
+
+    val imageView = view?.findViewById<ImageView>(R.id.result_iv)
+    val resultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val imageUri = result.data?.data
+            if (imageUri != null) {
+                val intent = Intent(requireContext(), ResultActivity::class.java).apply {
+                    putExtra("imageUri", imageUri.toString())
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "이미지를 선택하지 않았습니다", Toast.LENGTH_SHORT).show()
 
     private val resultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -152,8 +211,24 @@ class DietHomeFragment : Fragment() {
                     }
                 }
                 startActivity(Intent(requireActivity(), ResultActivity::class.java).putExtra("uri", imageUriToResult))
+
             }
         }
+    }
+
+
+//    val resultLauncher: ActivityResultLauncher<Intent> =
+//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//            if (result.resultCode == Activity.RESULT_OK) {
+//                val intentData = result.data
+//                intentData?.let { data ->
+//                    val imageUri = data.data
+//                    imageUri?.let { uri ->
+//                        Glide.with(requireContext()).load(uri).into(imageView!!)  // 대상 ImageView를 지정해야 합니다.
+//                    }
+//                }
+//            }
+//        }
 
 
 
@@ -193,5 +268,7 @@ class DietHomeFragment : Fragment() {
 
 
     }
+
+
 
 }
