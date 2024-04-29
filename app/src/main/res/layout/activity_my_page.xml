@@ -5,7 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MyPageActivity">
+    tools:context=".activity.MyPageActivity"
+    android:background="@color/whitewhitegreen2">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:title="My page"
+        android:background="@color/white"/>
 
     <ImageView
         android:id="@+id/iv_profile"
@@ -28,7 +38,8 @@
         android:id="@+id/et_nickname"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:hint="다이어트좋아님"
+        android:hint="다이어트좋아"
+        android:textColorHint="@color/black"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
         android:gravity="center"
@@ -36,19 +47,16 @@
         android:background="@color/whitegreen"
         android:layout_below="@id/iv_profile"/>
 
-
-    <ImageView
-        android:id="@+id/iv_pencil_nickname"
+    <TextView
+        android:id="@+id/tv_sla"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:text="님"
+        android:textSize="22sp"
         android:layout_marginTop="8dp"
         android:layout_alignBottom="@id/et_nickname"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="90dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="changeTextViewText"
-        android:background="@drawable/baseline_create_24" />
+        android:layout_marginRight="90dp"/>
 
 
 
@@ -60,29 +68,37 @@
         android:text="목표 칼로리"
         android:textStyle="bold"
         android:textSize="17sp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:layout_below="@id/et_nickname"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/tv_kcal"
+    <EditText
+        android:id="@+id/et_kcal"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:background="@color/whitegreen"
-        android:text="2400kcal"
+        android:hint="2400"
+        android:textColorHint="@color/black"
+        android:layout_marginTop="4dp"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:layout_below="@id/tv_goals_kcal"
-        android:layout_centerHorizontal="true" />
+        android:inputType="number"
+        android:background="@color/whitegreen"
+        android:layout_below="@id/tv_goals_kcal"/>
 
-    <ImageView
-        android:id="@+id/iv_pencil_kcal"
-        android:layout_width="30dp"
+    <TextView
+        android:id="@+id/tv_kcal_kcal"
+        android:layout_width="40dp"
         android:layout_height="30dp"
+        android:text="kcal"
+        android:textSize="22sp"
         android:layout_marginTop="8dp"
-        android:layout_alignBottom="@id/tv_kcal"
+        android:layout_alignBottom="@id/et_kcal"
         android:layout_alignParentRight="true"
         android:layout_marginRight="90dp"
-        android:background="@drawable/baseline_create_24" />
+        />
+
+
 
     <TextView
         android:id="@+id/tv_bmi"
@@ -94,7 +110,9 @@
         android:textSize="17sp"
         android:gravity="center"
         android:layout_below="@id/tv_kcal"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
+
 
 
 

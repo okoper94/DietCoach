@@ -40,7 +40,7 @@ class ManboFragment : Fragment(), SensorEventListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentManboBinding.inflate(inflater, container, false)
-        Glide.with(binding.root).load(R.drawable.move).into(binding.ivMove)
+        //Glide.with(binding.root).load(R.drawable.move).into(binding.ivMove)
         return binding.root
     }
 
@@ -147,7 +147,7 @@ class ManboFragment : Fragment(), SensorEventListener {
 
     private fun updateStepCount(stepCount: Int) {
         // UI 업데이트
-        binding.tvStepbox.text = "총 $stepCount 걸음 수"
+        binding.tvStepbox.text = "총 $stepCount / 10000 걸음 수"
     }
 
     override fun onDestroyView() {

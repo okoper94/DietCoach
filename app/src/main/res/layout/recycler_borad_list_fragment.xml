@@ -2,15 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:backgroundTint="@color/whitewhitegreen2">
 
 
-
-    <TextView
+    <ImageView
         android:id="@+id/tv_profile"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/ic_action_my"/>
+        android:src="@drawable/ic_action_my" />
 
     <TextView
         android:id="@+id/tv_nickname"

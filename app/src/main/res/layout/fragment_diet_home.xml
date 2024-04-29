@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:backgroundTint="@color/whitewhitegreen2">
 
 
     <com.github.mikephil.charting.charts.PieChart
@@ -276,5 +277,10 @@
 
 
     </RelativeLayout>
+
+<!--    <Button-->
+<!--        android:id="@+id/goac"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
 
 </LinearLayout>
