@@ -1,5 +1,6 @@
 package com.kys2024.dietcoach.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.kys2024.dietcoach.G
+import com.kys2024.dietcoach.G.Companion.userAccount
 import com.kys2024.dietcoach.data.UserAccount
 import com.kys2024.dietcoach.databinding.ActivityLoginBinding
 import com.navercorp.nid.NaverIdLoginSDK
@@ -28,8 +30,11 @@ import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
-    var userId : String? = ""
-    var userNick : String? = ""
+    private var userId : String? = ""
+    private var userNick : String? = ""
+    private var userpassword : String? =""
+    private var useruri : String? =""
+
 
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
 
@@ -40,6 +45,9 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         NaverIdLoginSDK.initialize(this, "xC8gXWUBO0R6KR8vexNc", "rTWsN8I52B", "다이어트코치")
+        // Application 객체에서 userAccount 속성에 데이터 저장
+
+
 
 
 
@@ -89,12 +97,16 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "$uid\n$nickname", Toast.LENGTH_SHORT).show()
             userId= uid
             userNick = nickname
-            G.userAccount= UserAccount(uid = userId!!, nickname = userNick!!)
-            serverToLoginUpload()
+            useruri = account.photoUrl.toString()
+            G.userAccount = UserAccount(uid = userId, nickname = userNick, uri = useruri ,null, null)
 
-            //main 화면으로 이동
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+
+            userId?.let {userId ->
+                saveSharedpreference(userId)
+                serverToLoginUpload()
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
+            }
         } else {
             Toast.makeText(this, "로그인 취소", Toast.LENGTH_SHORT).show()
         }
@@ -120,12 +132,15 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, "$uid\n$nickname", Toast.LENGTH_SHORT).show()
                         userId= uid
                         userNick = nickname
-                        G.userAccount= UserAccount(uid = userId!!, nickname = userNick!!)
-                        serverToLoginUpload()
+                        useruri = user.kakaoAccount?.profile?.profileImageUrl ?: ""
+                        G.userAccount = UserAccount(uid = userId, nickname = userNick, uri = useruri ,null, null)
+                        userId?.let {userId ->
+                            saveSharedpreference(userId)
+                            serverToLoginUpload()
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            finish()
+                        }
 
-                        //로그인 되었으니..
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
                     }
                 }
             }
@@ -148,15 +163,19 @@ class LoginActivity : AppCompatActivity() {
             override fun onSuccess(response: NidProfileResponse) {
                 userId = response.profile?.id
                 userNick = response.profile?.nickname
+                useruri = response.profile?.profileImage ?: ""
+
+                G.userAccount = UserAccount(uid = userId, nickname = userNick, uri = useruri ,null, null)
                 Log.d("naverlogin", "id: ${userId} \ntoken: ${naverToken}")
 
 
                 Toast.makeText(this@LoginActivity, "네이버 아이디 로그인 성공!", Toast.LENGTH_SHORT).show()
-                G.userAccount = UserAccount(uid = userId, nickname = userNick)
-                Log.d("naverlogin2", "id: ${G.userAccount?.uid} \ntoken: ${naverToken}")
-
-                serverToLoginUpload()
-                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                userId?.let {userId ->
+                    saveSharedpreference(userId)
+                    serverToLoginUpload()
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    finish()
+                }
 
 
             }
@@ -234,6 +253,19 @@ class LoginActivity : AppCompatActivity() {
         })
 
     }//서버업로드
+
+    private fun saveSharedpreference(userID:String){
+        val sharedPreferences = getSharedPreferences(userID, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val userdata: HashSet<String> = hashSetOf()
+        userdata.add(userId.toString())
+        userdata.add(userNick.toString())
+        userdata.add(useruri.toString())
+
+        editor.putStringSet("userdata", userdata)
+        editor.apply()
+
+    }
 
 
 

@@ -66,7 +66,7 @@ class LoginEmailActivity : AppCompatActivity() {
 
                 if (s.contains("성공")){
                     Toast.makeText(this@LoginEmailActivity, "$s", Toast.LENGTH_SHORT).show()
-                    G.userAccount= UserAccount(uid=email)
+                    G.userAccount?.uid=email
                     startActivity(Intent(this@LoginEmailActivity, MainActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     finish()

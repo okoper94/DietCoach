@@ -6,7 +6,8 @@
     android:background="@color/white"
     android:padding="16dp"
     android:orientation="vertical"
-    android:weightSum="100">
+    android:weightSum="100"
+    android:backgroundTint="@color/whitewhitegreen2">
 
 
         <TextView
@@ -16,14 +17,9 @@
             android:text="하루 식단 인증"
             android:layout_marginBottom="8dp"
             android:textSize="20sp"
-            android:textStyle="bold" />
-
-
-
-    </RelativeLayout>
             android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_weight="5"/>
+            android:layout_weight="10"
+            android:layout_gravity="center"/>
 
 
 
@@ -35,34 +31,24 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_board"
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"/>
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:text="글쓰기"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/green"
-        android:layout_marginBottom="64dp"/>
         android:orientation="vertical"
-        android:layout_weight="75"/>
+        android:layout_weight="70"/>
+
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
-        >
+        android:layout_weight="10">
 
 
         <Button
             android:id="@+id/btn"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="52dp"
             android:text="글쓰기"
             android:backgroundTint="@color/green"
             android:layout_marginBottom="64dp"

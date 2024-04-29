@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.CalendarViewActivity"
     android:background="@color/white"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:backgroundTint="@color/whitewhitegreen2">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
