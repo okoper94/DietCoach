@@ -34,11 +34,16 @@ class ResultActivity : AppCompatActivity() {
     private val binding by lazy { ActivityResultBinding.inflate(layoutInflater) }
     private lateinit var foodDataList: List<FoodData>
     private val foodNameMap: MutableMap<String, FoodName> = mutableMapOf()
+    private lateinit var mealType: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 식사 유형 가져오기
+        mealType = intent.getStringExtra("MEAL_TYPE") ?: "breakfast"
+
+        // 툴바 설정
         setSupportActionBar(binding.toolbarBack)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setTitle("")
@@ -46,37 +51,32 @@ class ResultActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        // 삭제 버튼 클릭 리스너
         binding.resultBtnDelete.setOnClickListener {
             binding.resultIv.setImageResource(0)
             binding.resultTv.text = ""
         }
 
+        // 저장 버튼 클릭 리스너 추가
+        binding.resultBtnOk.setOnClickListener {
+            saveNutritionData()
+            finish() // ResultActivity 종료
+        }
 
+        // 음식 이름 데이터 로드
         loadFoodName()
 
+        // 이미지 URI 처리
         val imageUri = intent.getStringExtra("imageUri")
-        if (imageUri != null) {
-            Glide.with(this)
-                .asBitmap() // 비트맵으로 이미지 로드
-                .load(Uri.parse(imageUri))
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
-                    ) {
-                        binding.resultIv.setImageBitmap(resource) // ImageView에 비트맵 설정
-                        imageAnalysis(resource)
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-
-                    }
-                })
-        } else {
-            Toast.makeText(this, "이미지를 받아오지 못했습니다", Toast.LENGTH_SHORT).show()
+        val imagePath = intent.getStringExtra("imagePath")
+        when {
+            imageUri != null -> loadAndAnalyzeImage(Uri.parse(imageUri))
+            imagePath != null -> loadAndAnalyzeImage(Uri.parse("file://$imagePath"))
+            else -> Toast.makeText(this, "이미지를 받아오지 못했습니다", Toast.LENGTH_SHORT).show()
         }
     }
 
+    // 음식 이름 데이터 읽어오는 함수
     private fun loadFoodName() {
         try {
             val inputStream = assets.open("foodListUTF8.csv")
@@ -96,6 +96,25 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    // 이미지 불러와서 imageAnalysis 함수에 떤지기
+    private fun loadAndAnalyzeImage(uri: Uri) {
+        Glide.with(this)
+            .asBitmap()
+            .load(uri)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
+                ) {
+                    binding.resultIv.setImageBitmap(resource)
+                    imageAnalysis(resource)
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
+    }
+
+    // 이미지 분석하여 음식 식별하는 함수
     private fun imageAnalysis(bitmap: Bitmap) {
         val modelFood: Modelfood = Modelfood.newInstance(this)
         try {
@@ -108,6 +127,7 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    // 결과 표시 함수
     private fun displayResult(category: Category?) {
         if (category != null) {
             val food = foodNameMap[category.label]
@@ -120,6 +140,7 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    // 음식 데이터 fetch 함수
     private fun fetchFoodData(query: String) {
         val retrofit = RetrofitHelper2.getRetrofitInstance("https://api.odcloud.kr/api/")
         val foodApiService = retrofit.create(FoodApiService::class.java)
@@ -146,6 +167,7 @@ class ResultActivity : AppCompatActivity() {
         })
     }
 
+    // UI 업데이트 함수
     private fun updateUI(food: FoodData) {
         binding.resultTv.text = "음식명: ${food.foodName}\n칼로리: ${food.calories}cal\n" +
                 "탄수화물: ${food.carbsGram}g\n단백질: ${food.proteinGram}g\n지방: ${food.fatGram}g"
@@ -154,10 +176,35 @@ class ResultActivity : AppCompatActivity() {
         with(sharedPreferences.edit()) {
             putString("FoodName", food.foodName)
             putString("Calories", food.calories)
+            putString("Carbs", food.carbsGram)
+            putString("Protein", food.proteinGram)
+            putString("Fat", food.fatGram)
             apply()
         }
     }
 
+    // 영양 정보 저장 함수
+    private fun saveNutritionData() {
+        val sharedPreferences = getSharedPreferences("FoodInfo", MODE_PRIVATE)
+        val calories = sharedPreferences.getString("Calories", "0")?.toIntOrNull() ?: 0
+        val carbs = sharedPreferences.getString("Carbs", "0")?.toFloatOrNull() ?: 0f
+        val protein = sharedPreferences.getString("Protein", "0")?.toFloatOrNull() ?: 0f
+        val fat = sharedPreferences.getString("Fat", "0")?.toFloatOrNull() ?: 0f
+
+        val nutritionPref = getSharedPreferences("NutritionData", MODE_PRIVATE)
+
+        with(nutritionPref.edit()) {
+            putInt("${mealType}_calories", nutritionPref.getInt("${mealType}_calories", 0) + calories)
+            putFloat("${mealType}_carbs", nutritionPref.getFloat("${mealType}_carbs", 0f) + carbs)
+            putFloat("${mealType}_protein", nutritionPref.getFloat("${mealType}_protein", 0f) + protein)
+            putFloat("${mealType}_fat", nutritionPref.getFloat("${mealType}_fat", 0f) + fat)
+            apply()
+        }
+
+        Toast.makeText(this, "영양 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show()
+    }
+
+    // 이미지가 선택되지 않았을 때 다이얼로그 표시
     private fun showImageNotSelectedDialog() {
         AlertDialog.Builder(this)
             .setMessage("사진이 없습니다")
