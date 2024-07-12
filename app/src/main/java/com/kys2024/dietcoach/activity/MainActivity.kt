@@ -2,6 +2,7 @@ package com.kys2024.dietcoach.activity
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -136,6 +137,8 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        loadSavedNutritionData()
+
     } // onCreate..
 
     override fun onResume() {
@@ -189,5 +192,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    private fun loadSavedNutritionData() {
+        val sharedPref = getSharedPreferences("UserNutrition", Context.MODE_PRIVATE)
+        val bmi = sharedPref.getFloat("BMI", 0f)
+        val carbs = sharedPref.getFloat("CARBS", 0f)
+        val protein = sharedPref.getFloat("PROTEIN", 0f)
+        val fat = sharedPref.getFloat("FAT", 0f)
     }
 }
